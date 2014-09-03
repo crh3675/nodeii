@@ -53,6 +53,17 @@ app.use(logger('combined'));
 			if(r.match(/^put/i)) {
 				app.put(r.replace(/^put\s+/i,''), routes[r]);
 			}
+			
+			/*
+			I have never liked DELETE, it just sounds bad no matter 
+			how secure you think your app is. But if you are determined, just 
+			uncomment the lines below.
+			*/
+			/*
+			if(r.match(/^delete/i)) {
+				app.put(r.replace(/^delete\s+/i,''), routes[r]);
+			}
+			*/
 		}	
 		next();	
 	});
