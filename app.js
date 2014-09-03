@@ -61,7 +61,7 @@ app.use(logger('combined'));
 			*/
 			/*
 			if(r.match(/^delete/i)) {
-				app.put(r.replace(/^delete\s+/i,''), routes[r]);
+				app.delete(r.replace(/^delete\s+/i,''), routes[r]);
 			}
 			*/
 		}	
