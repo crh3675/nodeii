@@ -1,8 +1,16 @@
+var diskAdapter = require('sails-disk');
+
 module.exports = {
-	mysql : {
-		module : 'mysql',
-		host : 'localhost',
-		user : 'root',
-		password : ''
+   adapters : {
+      'default' : diskAdapter,
+      'disk' : diskAdapter
+   },
+   connections : {
+      localDisk : {
+         adapter : 'disk'
+      }
+	},
+	defaults : {
+	   migrate : 'alter'
 	}	
 }

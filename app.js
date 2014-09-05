@@ -1,11 +1,19 @@
 var express = require('express')
+, bodyParser = require('body-parser')
 , http = require('http')
 , logger = require('morgan')
+, fs = require('fs')
+, path = require('path')
 , app = express()
+, waterline = require('waterline')
+, orm = new waterline()
 , port = 3000;
 
-// attach a logger
 app.use(logger('combined'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
+var _models = {};
 
 /*
  * Infrastructure is code that commmunicates with Entity objects.
@@ -14,8 +22,21 @@ app.use(logger('combined'));
 */
 (function boostrap_infrastructure() {
 	
-	var adapters = require('./infrastructure/config/adapters');
-	
+	var entities = fs.readdirSync('./infrastructure/entities');
+
+	entities.forEach(function(entity) {
+	   var klass = entity.replace(/\.js$/i,'');
+	   var schema = require('./infrastructure/entities/' + entity);
+	   var def = _models[klass.toLowerCase()] = { id : klass };
+	   
+	   if(!schema.hasOwnProperty('tableName')) {
+	      schema.tableName = klass;
+      }
+	   
+	   def.model = waterline.Collection.extend( schema );	
+	   orm.loadCollection(def.model);
+   });	
+
 })();
 
 /*
@@ -69,9 +90,21 @@ app.use(logger('combined'));
 	});
 })();
 
-// get this server up and running
 var server = http.createServer(app);
-server.setMaxListeners(0);
-server.listen(port, function(){
-  console.log('Sensei says, listening on port ' + port);
+var config = require('./infrastructure/config/adapters');
+
+// get this server up and running
+orm.initialize(config, function(err, models) {
+
+   // push entities to global scope based on file name
+   if(models.collections) {
+      for(var name in models.collections) {
+         global[ _models[name].id ] = models.collections[name];
+      }
+   }
+      
+   server.setMaxListeners(0);
+   server.listen(port, function(){
+     console.log('Sensei says, listening on port ' + port);
+   });
 });

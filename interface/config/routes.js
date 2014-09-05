@@ -1,3 +1,4 @@
 module.exports = {
-	'get /' : require('../routes/main')
+	'get /' : require('../routes/main'),
+	'post /' : require('../routes/main')
 };
