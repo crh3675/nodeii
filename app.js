@@ -1,4 +1,5 @@
 var express = require('express')
+, expressLayouts = require('express-ejs-layouts')
 , bodyParser = require('body-parser')
 , http = require('http')
 , logger = require('morgan')
@@ -53,16 +54,20 @@ var _models = {};
 	app.set('views', './interface/routes');
 	
 	// for layout control, relative to views path
-	app.use(require('express-ejs-layouts'));
 	app.set('layout', '../layouts/default');
+	app.use(expressLayouts)
+	app.set('layout extractScripts', true);
 	
 	// static asset loader
 	app.use(express.static(__dirname + '/interface/assets'));
 
 	// custom router
 	var routes = require('./interface/config/routes');
+	
 	app.use(function(req, res, next) {
-
+	   
+	   app.locals.scripts = [];
+	   
 		for(var r in routes) {
 
 			if(r.match(/^get/i)) {
