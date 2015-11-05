@@ -98,8 +98,8 @@ var _models = {};
 	         next();
 	      }
 	   });
-   }
-   
+	}
+	      
 	// simple router
 	var routes = require(sensei.app.routes);
 	
