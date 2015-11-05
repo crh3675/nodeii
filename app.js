@@ -50,7 +50,7 @@ var _models = {};
 	   var def = _models[klass.toLowerCase()] = { id : klass };
 	   
 	   if(!schema.hasOwnProperty('tableName')) {
-	      schema.tableName = klass;
+         schema.tableName = klass;
       }
       
       schema.connection = 'default' || def.connection;
