@@ -1,4 +1,4 @@
-NodeII
+NodeII (aka Sensei)
 ========
 A sensible way to setup modern NodeJS Web Projects.
 

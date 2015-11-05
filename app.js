@@ -12,25 +12,26 @@ var express = require('express')
 , port = 3000;
 
 // Setup global app
-global.app = express();
+global.sensei = {}
+sensei.app = express();
 
 // Configure paths for application
-app.root     = __dirname;
-app.views    = path.join(app.root, 'interface', 'routes');
-app.assets   = path.join(app.root, 'interface', 'assets');
-app.routes   = path.join(app.root, 'interface', 'config', 'routes');
-app.adapters = path.join(app.root, 'infrastructure','config','adapters');
-app.entities = path.join(app.root, 'infrastructure', 'entities');
-app.layout   = path.join(app.views, '..', 'layouts', 'default');
-app.cors     = true;
+sensei.app.root     = __dirname;
+sensei.app.views    = path.join(sensei.app.root, 'interface', 'routes');
+sensei.app.assets   = path.join(sensei.app.root, 'interface', 'assets');
+sensei.app.routes   = path.join(sensei.app.root, 'interface', 'config', 'routes');
+sensei.app.adapters = path.join(sensei.app.root, 'infrastructure','config','adapters');
+sensei.app.entities = path.join(sensei.app.root, 'infrastructure', 'entities');
+sensei.app.layout   = path.join(sensei.app.views, '..', 'layouts', 'default');
+sensei.app.cors     = true;
 
 // Configure express app server
-app.use(logger('combined'));
-app.use(cookieParser());
-app.use(expressSession({ secret : '7cdfb2ba6f5f67e8ce99c96c567d612f' }));
-app.use(bodyParser.urlencoded({ extended : false }));
-app.use(bodyParser.json());
-app.use(bodyParser.raw());
+sensei.app.use(logger('combined'));
+sensei.app.use(cookieParser());
+sensei.app.use(expressSession({ name : 'senseid', secret : '7cdfb2ba6f5f67e8ce99c96c567d612f' }));
+sensei.app.use(bodyParser.urlencoded({ extended : false }));
+sensei.app.use(bodyParser.json());
+sensei.app.use(bodyParser.raw());
 
 // Create proxy var to store models
 var _models = {};
@@ -42,11 +43,11 @@ var _models = {};
 */
 (function boostrap_infrastructure() {
 	
-	var entities = fs.readdirSync(app.entities);
+	var entities = fs.readdirSync(sensei.app.entities);
 
 	entities.forEach(function(entity) {
 	   var klass = entity.replace(/\.js$/i,'');
-	   var schema = require(path.join(app.entities, entity));
+	   var schema = require(path.join(sensei.app.entities, entity));
 	   var def = _models[klass.toLowerCase()] = { id : klass };
 	   
 	   if(!schema.hasOwnProperty('tableName')) {
@@ -69,20 +70,20 @@ var _models = {};
 (function bootstrap_interface() {
 	
 	// ejs rendering engine for templates
-	app.set('view engine', 'ejs');
-	app.set('views', app.views);
+	sensei.app.set('view engine', 'ejs');
+	sensei.app.set('views', sensei.app.views);
 	
 	// for layout control, relative to views path
-	app.set('layout', app.layout);
-	app.use(expressLayouts)
-	app.set('layout extractScripts', true);
+	sensei.app.set('layout', sensei.app.layout);
+	sensei.app.use(expressLayouts)
+	sensei.app.set('layout extractScripts', true);
 	
 	// static asset loader
-	app.use(express.static(app.assets));
+	sensei.app.use(express.static(sensei.app.assets));
 
 	// cors control
-	if(app.cors === true) {
-      app.use(function(req, res, next) {
+	if(sensei.app.cors === true) {
+      sensei.app.use(function(req, res, next) {
 
          res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
          res.set('Access-Control-Allow-Origin', '*');
@@ -99,22 +100,22 @@ var _models = {};
    }
    
 	// simple router
-	var routes = require(app.routes);
+	var routes = require(sensei.app.routes);
 	
-	app.use(function(req, res, next) {
+	sensei.app.use(function(req, res, next) {
 	   
 		for(var r in routes) {
 
 			if(r.match(/^get/i)) {
-				app.get(r.replace(/^get\s+/i,''), routes[r]);
+				sensei.app.get(r.replace(/^get\s+/i,''), routes[r]);
 			}
 
 			if(r.match(/^post/i)) {
-				app.post(r.replace(/^post\s+/i,''), routes[r]);
+				sensei.app.post(r.replace(/^post\s+/i,''), routes[r]);
 			}
 
 			if(r.match(/^put/i)) {
-				app.put(r.replace(/^put\s+/i,''), routes[r]);
+				sensei.app.put(r.replace(/^put\s+/i,''), routes[r]);
 			}
 			
 			/*
@@ -124,7 +125,7 @@ var _models = {};
 			*/
 			/*
 			if(r.match(/^delete/i)) {
-				app.delete(r.replace(/^delete\s+/i,''), routes[r]);
+				sensei.app.delete(r.replace(/^delete\s+/i,''), routes[r]);
 			}
 			*/
 		}	
@@ -133,7 +134,7 @@ var _models = {};
 })();
 
 var server = http.createServer(app);
-var config = require(app.adapters);
+var config = require(sensei.app.adapters);
 
 // get this server up and running
 orm.initialize(config, function(err, models) {
