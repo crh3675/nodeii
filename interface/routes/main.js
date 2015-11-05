@@ -1,4 +1,4 @@
-module.exports = function(req, res) {
+module.exports = function(req, res, buf) {
 
 	res.render('./main.ejs');
 }
