@@ -1,19 +1,38 @@
 var express = require('express')
 , expressLayouts = require('express-ejs-layouts')
+, expressSession = require('express-session')
+, cookieParser = require('cookie-parser')
 , bodyParser = require('body-parser')
-, http = require('http')
+, waterline = require('waterline')
 , logger = require('morgan')
+, http = require('http')
 , fs = require('fs')
 , path = require('path')
-, app = express()
-, waterline = require('waterline')
 , orm = new waterline()
 , port = 3000;
 
+// Setup global app
+global.app = express();
+
+// Configure paths for application
+app.root     = __dirname;
+app.views    = path.join(app.root, 'interface', 'routes');
+app.assets   = path.join(app.root, 'interface', 'assets');
+app.routes   = path.join(app.root, 'interface', 'config', 'routes');
+app.adapters = path.join(app.root, 'infrastructure','config','adapters');
+app.entities = path.join(app.root, 'infrastructure', 'entities');
+app.layout   = path.join(app.views, '..', 'layouts', 'default');
+app.cors     = true;
+
+// Configure express app server
 app.use(logger('combined'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(expressSession({ secret : '7cdfb2ba6f5f67e8ce99c96c567d612f' }));
+app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
+
+// Create proxy var to store models
 var _models = {};
 
 /*
@@ -23,11 +42,11 @@ var _models = {};
 */
 (function boostrap_infrastructure() {
 	
-	var entities = fs.readdirSync('./infrastructure/entities');
+	var entities = fs.readdirSync(app.entities);
 
 	entities.forEach(function(entity) {
 	   var klass = entity.replace(/\.js$/i,'');
-	   var schema = require('./infrastructure/entities/' + entity);
+	   var schema = require(path.join(app.entities, entity));
 	   var def = _models[klass.toLowerCase()] = { id : klass };
 	   
 	   if(!schema.hasOwnProperty('tableName')) {
@@ -51,22 +70,38 @@ var _models = {};
 	
 	// ejs rendering engine for templates
 	app.set('view engine', 'ejs');
-	app.set('views', './interface/routes');
+	app.set('views', app.views);
 	
 	// for layout control, relative to views path
-	app.set('layout', '../layouts/default');
+	app.set('layout', app.layout);
 	app.use(expressLayouts)
 	app.set('layout extractScripts', true);
 	
 	// static asset loader
-	app.use(express.static(__dirname + '/interface/assets'));
+	app.use(express.static(app.assets));
 
-	// custom router
-	var routes = require('./interface/config/routes');
+	// cors control
+	if(app.cors === true) {
+      app.use(function(req, res, next) {
+
+         res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+         res.set('Access-Control-Allow-Origin', '*');
+         res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
+         res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');   
+
+          // Intercept OPTIONS method
+         if (req.method == 'OPTIONS') {
+            return res.sendStatus(200);
+         } else {        
+           next();
+         }
+      });
+   }
+   
+	// simple router
+	var routes = require(app.routes);
 	
 	app.use(function(req, res, next) {
-	   
-	   app.locals.scripts = [];
 	   
 		for(var r in routes) {
 
@@ -98,7 +133,7 @@ var _models = {};
 })();
 
 var server = http.createServer(app);
-var config = require('./infrastructure/config/adapters');
+var config = require(app.adapters);
 
 // get this server up and running
 orm.initialize(config, function(err, models) {
