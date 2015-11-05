@@ -83,20 +83,21 @@ var _models = {};
 
 	// cors control
 	if(sensei.app.cors === true) {
-      sensei.app.use(function(req, res, next) {
-
-         res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-         res.set('Access-Control-Allow-Origin', '*');
-         res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
-         res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');   
-
-          // Intercept OPTIONS method
-         if (req.method == 'OPTIONS') {
-            return res.sendStatus(200);
-         } else {        
-           next();
-         }
-      });
+	   
+	   sensei.app.use(function(req, res, next) {
+	      
+	      res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+	      res.set('Access-Control-Allow-Origin', '*');
+	      res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
+	      res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
+	      
+	      // Intercept OPTIONS method
+	      if (req.method == 'OPTIONS') {
+	         return res.sendStatus(200);
+	      } else {
+	         next();
+	      }
+	   });
    }
    
 	// simple router
