@@ -6,7 +6,7 @@ module.exports = {
       'disk' : diskAdapter
    },
    connections : {
-      localDisk : {
+      'default' : {
          adapter : 'disk'
       }
 	},

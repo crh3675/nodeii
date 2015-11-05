@@ -32,6 +32,8 @@ var _models = {};
 	   if(!schema.hasOwnProperty('tableName')) {
 	      schema.tableName = klass;
       }
+      
+      schema.connection = 'default' || def.connection;
 	   
 	   def.model = waterline.Collection.extend( schema );	
 	   orm.loadCollection(def.model);
