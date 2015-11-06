@@ -134,11 +134,29 @@ var _models = {};
 	});
 })();
 
+/**
+ * For HTTPS support, switch require('http') to require('https')
+ *
+ * Then create an ssl object:
+ *
+ * var ssl = {
+ *    key  : fs.readFileSync( path.join(__dirname, 'certs', 'cert.key' ),
+ *    cert : fs.readFileSync( path.join(__dirname, 'certs', 'cert.crt' ),
+ *    ca   : fs.readFileSync( path.join(__dirname, 'certs', 'ca.pem' )
+ * }
+ *
+ * Configure server using:
+ *
+ * var server = https.createServer(ssl, app);
+ *
+ * Don't forget to set `port` to 443
+ *
+ */
 var server = http.createServer(sensei.app);
-var config = require(sensei.app.adapters);
+var adapters = require(sensei.app.adapters);
 
 // get this server up and running
-orm.initialize(config, function(err, models) {
+orm.initialize(adapters, function(err, models) {
 
    // push entities to global scope based on file name
    if(models.collections) {
