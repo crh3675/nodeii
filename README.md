@@ -32,6 +32,8 @@ It is our belief that _infrastructure_ should have minimal coupling and have no 
 
 The _processing files_ (controllers) for _NodeII_ merely resolve __routes__ to JS files that can also invoke EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
 
+## Ready to get MVC out of your vocabulary?
+
 Clone this project and run:
 
 > npm install
