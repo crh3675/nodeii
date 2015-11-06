@@ -134,7 +134,7 @@ var _models = {};
 	});
 })();
 
-var server = http.createServer(app);
+var server = http.createServer(sensei.app);
 var config = require(sensei.app.adapters);
 
 // get this server up and running
