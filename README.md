@@ -41,3 +41,7 @@ Clone this project and run:
 Then:
 
 > node app.js
+
+In your browser:
+
+> http://localhost:3000
