@@ -25,8 +25,8 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 - Routing
 - Assets
 - HTML Views (EJS)
-- View Rendering Agents (Controllers for you MVC folks)
-- Services (HTMLHelpers for RoR folks)
+- Interface Processing
+- Interface Services
 
 It is our belief that _infrastructure_ should have minimal coupling and have no effect on how an _interface_ is built. The only connection from _interface_ to _infrastructure_ is the fact that _interface_ can invoke _entities_ in the processing files (formerly known as controllers for MVC folks). 
 
