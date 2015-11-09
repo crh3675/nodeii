@@ -5,6 +5,7 @@ var express = require('express')
 , bodyParser = require('body-parser')
 , waterline = require('waterline')
 , logger = require('morgan')
+, async = require('async')
 , fs = require('fs')
 , path = require('path')
 , orm = new waterline();
@@ -48,9 +49,11 @@ module.exports = {
       sensei.managers       = {};
       sensei.entities       = {};
       sensei.services       = {};
+      sensei.policies       = {};
       sensei.paths.root     = defaults.paths.root     || __dirname;
       sensei.paths.views    = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'routes');
       sensei.paths.assets   = defaults.paths.assets   || path.join(sensei.paths.root, 'interface', 'assets');
+      sensei.paths.policies = defaults.paths.policies || path.join(sensei.paths.root, 'interface', 'policies');
       sensei.paths.entities = defaults.paths.entities || path.join(sensei.paths.root, 'infrastructure', 'entities');
       sensei.paths.layout   = defaults.paths.layout   || path.join(sensei.paths.views, '..', 'layouts', 'default');
       sensei.paths.managers = defaults.paths.manager  || path.join(sensei.paths.root, 'infrastructure', 'managers');
@@ -88,7 +91,7 @@ module.exports = {
       }      
 
       // Create proxy var to store models, managers and services
-      var _entities = {}, _managers = {}, _services = {};
+      var _entities = {}, _managers = {}, _services = {}, _policies = {};
 
       /*
        * Infrastructure is code that commmunicates with Entity objects.
@@ -114,23 +117,24 @@ module.exports = {
       	   orm.loadCollection(def.model);
          });	
 
-         /*
-          * Managers are infrastructure components that contain complex business
-          * logic.  Most likely used when agregating data from multiple entities
-          */
-         (function bootstrap_managers() {
-
-            var managers = fs.readdirSync(sensei.paths.managers);
-
-         	managers.forEach(function(manager) {
-         	   var klass = manager.replace(/\.js$/i,'');
-         	   _managers[klass] = require(path.join(sensei.paths.managers, manager));
-            });
-
-            sensei.app.managers = _managers;
-         })();
-
       })();
+      
+       /*
+        * Managers are infrastructure components that contain complex business
+        * logic.  Most likely used when agregating data from multiple entities
+        */
+      (function bootstrap_managers() {
+
+         var managers = fs.readdirSync(sensei.paths.managers);
+
+      	managers.forEach(function(manager) {
+      	   var klass = manager.replace(/\.js$/i,'');
+      	   _managers[klass] = require(path.join(sensei.paths.managers, manager));
+         });
+
+         sensei.managers = _managers;
+      })();
+
 
       /*
        * Interface is code that communicates directly with the User of the application.
@@ -171,7 +175,22 @@ module.exports = {
          	      }
          	   });
          	})();
-      	}
+      	};
+      	
+         /*
+          * Policies are before-filters than run prior to routes being honored
+          */
+         (function bootstrap_policies() {
+
+            var policies = fs.readdirSync(sensei.paths.policies);
+
+         	policies.forEach(function(policy) {
+         	   var klass = policy.replace(/\.js$/i,'');
+         	   _policies[klass] = require(path.join(sensei.paths.policies, policy));
+            });
+
+            sensei.policies = _policies;
+         })();
 
       	/*
       	 * Routes use a simple structure to interface with the ExpresJS server
@@ -182,16 +201,48 @@ module.exports = {
 
          	sensei.app.use(function(req, res, next) {
 
-               // 
          	   var regex = /^(get|post|put|delete|patch|head)/i;
 
          		for(var r in routes) {
 
          			if(m = r.match(regex)) {
+         			   
          			   var method = m[0].toLowerCase();			   
-         			   var route = r.replace(new RegExp('^' + method + '\\s+','i'),'')
-         			   sensei.app[ method ](route, routes[r]);
+         			   var route = r.replace(new RegExp('^' + method + '\\s+','i'),'');
+         			   var proxy = { route : routes[r], policies : [], expires : 0 };
+         			   
+         			   if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
+         			      
+         			      if(routes[r].expires) {  
+         			         proxy.expires = routes[r].expires;       			         
+         			         res.set('Last-Modified',  (new Date()).toUTCString());
+                           res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
+                           res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
+                           res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());            			         
+      			         }
+         			      
+         			      if(routes[r].route) {
+         			         proxy.route = routes[r].route;
+      			         }
+         			      
+         			      if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
+
+            			      var asyncs = [];
+            			      proxy.policies = routes[r].policies;
+
+            			      proxy.policies.forEach(function(policy) {
+           			            var parts = policy.split('.');
+         			            sensei.app[ method ](route, sensei.policies[ parts[0] ][ parts[1] ]);
+         			         });
+      			         }
+      			         
+      			      } else {
+      			         
+         			      sensei.app[ method ](route, proxy.route);
+         			   }
+         			   
          			} else {
+         			   
          			   console.warn('Invalid route detected ' + routes[r]);
          			   res.status(400).end('Invalid Request for ' + routes[r]);
          		   }
@@ -209,7 +260,7 @@ module.exports = {
          	   _services[klass] = require(path.join(sensei.paths.services, service));
             });
 
-            sensei.app.services = _services;
+            sensei.services = _services;
          })();
 
       })();
@@ -239,7 +290,7 @@ module.exports = {
    
          // push managers to global scope based on file name
          if(self.defaults.globals.length == 0 || self.defaults.globals.indexOf('managers') > -1) { 
-            if(Object.keys(sensei.app.managers).length) {
+            if(Object.keys(sensei.managers).length) {
                for(var name in _managers) {
                   global[ name ] = _managers[ name ];         
                }
@@ -248,7 +299,7 @@ module.exports = {
    
          // push services to global scope based on file name
          if(self.defaults.globals.length == 0 || self.defaults.globals.indexOf('services') > -1) { 
-            if(Object.keys(sensei.app.services).length) {
+            if(Object.keys(sensei.services).length) {
                for(var name in _services) {
                   global[ name ] = _services[ name ];         
                }
