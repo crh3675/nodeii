@@ -1,7 +1,7 @@
 /*
  * NodeII Sensei Loader
  *
- * This is a basic loaded that allows you to have access and configure whatever you need.  
+ * This is a basic loader that allows you to have access and configure whatever you need.  
  * The sensei.js is merely abstracted to make this
  * base file easier to read for configuration and startup.
  *
