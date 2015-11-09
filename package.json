@@ -1,7 +1,7 @@
 {
   "name": "sensei",
   "description": "sensible application flow",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
     "body-parser": "^1.7.0",
     "cookie-parser": "^1.4.0",

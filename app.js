@@ -1,172 +1,54 @@
-var express = require('express')
-, expressLayouts = require('express-ejs-layouts')
-, expressSession = require('express-session')
-, cookieParser = require('cookie-parser')
-, bodyParser = require('body-parser')
-, waterline = require('waterline')
-, logger = require('morgan')
-, http = require('http')
-, fs = require('fs')
-, path = require('path')
-, orm = new waterline()
-, port = 3000;
-
-// Setup global app
-global.sensei = {}
-sensei.app = express();
-
-// Configure paths for application
-sensei.app.root     = __dirname;
-sensei.app.views    = path.join(sensei.app.root, 'interface', 'routes');
-sensei.app.assets   = path.join(sensei.app.root, 'interface', 'assets');
-sensei.app.routes   = path.join(sensei.app.root, 'interface', 'config', 'routes');
-sensei.app.adapters = path.join(sensei.app.root, 'infrastructure','config','adapters');
-sensei.app.entities = path.join(sensei.app.root, 'infrastructure', 'entities');
-sensei.app.layout   = path.join(sensei.app.views, '..', 'layouts', 'default');
-sensei.app.cors     = true;
-
-// Configure express app server
-sensei.app.use(logger('combined'));
-sensei.app.use(cookieParser());
-sensei.app.use(expressSession({ name : 'senseid', secret : '7cdfb2ba6f5f67e8ce99c96c567d612f' }));
-sensei.app.use(bodyParser.urlencoded({ extended : false }));
-sensei.app.use(bodyParser.json());
-sensei.app.use(bodyParser.raw());
-
-// Create proxy var to store models
-var _models = {};
-
 /*
- * Infrastructure is code that commmunicates with Entity objects.
- * It has been abstracted from an MVC layer to better encapsulate the core
- * or business-related functionality from the UI Component. 
-*/
-(function boostrap_infrastructure() {
-	
-	var entities = fs.readdirSync(sensei.app.entities);
-
-	entities.forEach(function(entity) {
-	   var klass = entity.replace(/\.js$/i,'');
-	   var schema = require(path.join(sensei.app.entities, entity));
-	   var def = _models[klass.toLowerCase()] = { id : klass };
-	   
-	   if(!schema.hasOwnProperty('tableName')) {
-	      schema.tableName = klass;
-	   }
-	   
-	   schema.connection = 'default' || def.connection;
-	   
-	   def.model = waterline.Collection.extend( schema );	
-	   orm.loadCollection(def.model);
-   });	
-
-})();
-
-/*
- * Interface is code that communicates directly with the User of the application.
- * It has been abstracted from an MVC layer to better encapsulate UX/User Interaction
- * principles that should not care about the underlying architecture
-*/
-(function bootstrap_interface() {
-	
-	// ejs rendering engine for templates
-	sensei.app.set('view engine', 'ejs');
-	sensei.app.set('views', sensei.app.views);
-	
-	// for layout control, relative to views path
-	sensei.app.set('layout', sensei.app.layout);
-	sensei.app.use(expressLayouts)
-	sensei.app.set('layout extractScripts', true);
-	
-	// static asset loader
-	sensei.app.use(express.static(sensei.app.assets));
-
-	// cors control
-	if(sensei.app.cors === true) {
-	   
-	   sensei.app.use(function(req, res, next) {
-	      
-	      res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-	      res.set('Access-Control-Allow-Origin', '*');
-	      res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
-	      res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
-	      
-	      // Intercept OPTIONS method
-	      if (req.method == 'OPTIONS') {
-	         return res.sendStatus(200);
-	      } else {
-	         next();
-	      }
-	   });
-	}
-	      
-	// simple router
-	var routes = require(sensei.app.routes);
-	
-	sensei.app.use(function(req, res, next) {
-	   
-		for(var r in routes) {
-
-			if(r.match(/^get/i)) {
-				sensei.app.get(r.replace(/^get\s+/i,''), routes[r]);
-			}
-
-			if(r.match(/^post/i)) {
-				sensei.app.post(r.replace(/^post\s+/i,''), routes[r]);
-			}
-
-			if(r.match(/^put/i)) {
-				sensei.app.put(r.replace(/^put\s+/i,''), routes[r]);
-			}
-			
-			/*
-			I have never liked DELETE, it just sounds bad no matter 
-			how secure you think your app is. But if you are determined, just 
-			uncomment the lines below.
-			*/
-			/*
-			if(r.match(/^delete/i)) {
-				sensei.app.delete(r.replace(/^delete\s+/i,''), routes[r]);
-			}
-			*/
-		}	
-		next();	
-	});
-})();
-
-/**
- * For HTTPS support, switch require('http') to require('https')
+ * NodeII Sensei Loader
  *
- * Then create an ssl object:
+ * This is a basic loaded that allows you to have access and configure whatever you need.  
+ * The sensei.js is merely abstracted to make this
+ * base file easier to read for configuration and startup.
  *
- * var ssl = {
- *    key  : fs.readFileSync( path.join(__dirname, 'certs', 'cert.key' ),
- *    cert : fs.readFileSync( path.join(__dirname, 'certs', 'cert.crt' ),
- *    ca   : fs.readFileSync( path.join(__dirname, 'certs', 'ca.pem' )
- * }
+ * Paths
+ * =======================
+ * All paths can be overridden by passing to the base configure in a 'paths' param:
  *
- * Configure server using:
+ * { paths : { views : 'path_to_views_dir' }
  *
- * var server = https.createServer(ssl, app);
+ * Available keys for paths are: root, views, assets, routes, adapters, entities, layout, managers, services
  *
- * Don't forget to set `port` to 443
+ * Globals
+ * =======================
+ * By default, entities, services and managers are available in the global scope.
+ * For instance, if you have an entity file "Animal.js", you can access using the global
+ * variable "Animal".  You can disable globals for entities, services and maangers by
+ * passing a 'globals' param as an aray:
+ *
+ * { globals : [ 'entities', 'managers' ] 
+ *
+ * An empty array desingates that all are global.
+ *
+ * CORS
+ * =======================
+ * By default, we have a loose CORS configuration which enables 'Access-Control-Allow*' headers
+ * The only option in this file is 'true' or 'false'.  For custom configuration, you will need to
+ * make changes to sensei.js
+ *
+ * Cleanup
+ * =======================
+ * Many Node apps don't handle cleanup very efficiently.  Therefore, we have an option config param
+ * for 'cleanup'.  This is fired prior to the app shutting down, whether by fatal error or CTRL+C.
+ * Pass a function to this param to execute anything you want before complete exit.
+ *
+ * Sessions
+ * =======================
+ * In order to keep this framework slim, we only support sessions using sails-disk.  To customize session
+ * support, you will need to make changes in sensei.js and possibly NPM install additional modules.
  *
  */
-var server = http.createServer(sensei.app);
-var adapters = require(sensei.app.adapters);
+var sensei = require('./sensei');
 
-// get this server up and running
-orm.initialize(adapters, function(err, models) {
+sensei.configure({ 
+   port : 1337,
+   cors : true,
+   cleanup : function() {
 
-   // push entities to global scope based on file name
-   if(models.collections) {
-      for(var name in models.collections) {
-         global[ _models[name].id ] = models.collections[name];
-      }
    }
-      
-   server.setMaxListeners(0);
-   server.listen(port, function(){
-     console.log('Sensei says, listening on port ' + port);
-   });
 });
+sensei.begin();
