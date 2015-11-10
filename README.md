@@ -38,6 +38,8 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 
 It is our belief that _infrastructure_ should have minimal coupling and have no effect on how an _interface_ is built. The only connection from _interface_ to _infrastructure_ is the fact that _interface_ can invoke _entities_ in the processing files (formerly known as controllers for MVC folks). 
 
+Best case scenario is that you create _managers_ to hide the _entities_ completely from the _interface_.  But we don't judge :-)
+
 The _processing files_ (controllers) for _Nodeii_ merely resolve __routes__ to JS files that can also invoke EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
 
 Testing
