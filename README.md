@@ -11,6 +11,7 @@ NodeII is built upon simple but well supported libraries:
 - ExpressJS
 - Waterline
 - EJS Templating
+- Lodash
 
 Nodeii separates concerns into a new type of structure that is explained further below.
 
