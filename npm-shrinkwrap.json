@@ -1,7 +1,12 @@
 {
   "name": "sensei",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
+    "async": {
+      "version": "1.5.0",
+      "from": "async@*",
+      "resolved": "https://registry.npmjs.org/async/-/async-1.5.0.tgz"
+    },
     "body-parser": {
       "version": "1.14.1",
       "from": "body-parser@>=1.7.0 <2.0.0",
