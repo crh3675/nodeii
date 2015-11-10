@@ -4,7 +4,7 @@
 */
 module.exports = {
    'get *'       : {
-      policies : [ 'auth.isAuthenticated', 'auth.isUser' ],
+      policies : [ 'Security.isAuthenticated', 'Security.isUser' ],
       expires  : 3600   
    },
 	'get /'       : require('../routes/main'),
