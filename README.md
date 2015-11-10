@@ -2,7 +2,9 @@ Nodeii (node-eye-eye or Sensei)
 ========
 A sensible way to setup modern NodeJS Web Projects.
 
-The key to this project is, do not abstract your way to the point of extinction! Abstraction is necessary but modularity isn't always needed. 
+The key to this project is, do not abstract your way to the point of extinction! Abstraction is necessary but modularity isn't always needed. We loosely couple the services we include within the project in order for the developer to easily swap-out anything, anytime.
+
+As a developer, __you__ should be able to control your dependencies, not the modules.
 
 Sensei says, KISS.
 _____________________________________________________
