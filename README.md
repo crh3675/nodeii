@@ -22,6 +22,8 @@ Infrastructure are the backend components.  In a traditional MVC structure, this
 - Entities
 - Managers
 
+Managers are backend service containers that manage business logic.  Imagine you want to expose a single service to manage Registrations.  This service may touch many models. This is the perfect place for placing complex business logic functions.
+
 Interface
 ---------------
 Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns _interface_ into an encapsulated environments that contains:
