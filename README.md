@@ -49,12 +49,12 @@ We get you started with basic testing using __mocha__.  We created a folder call
 
 Clone this project and run:
 
-> npm install
+    npm install
    
 Then:
 
-> node app.js
+    node app.js
 
 In your browser:
 
-> http://localhost:3000
+    http://localhost:1337
