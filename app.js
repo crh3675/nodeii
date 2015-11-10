@@ -38,9 +38,13 @@
  *
  * Sessions
  * =======================
- * In order to keep this framework slim, we only support sessions using sails-disk.  To customize session
+ * In order to keep this framework slim, we only support sessions using express-session (https://github.com/expressjs/session).  To customize session
  * support, you will need to make changes in sensei.js and possibly NPM install additional modules.
  *
+ * ORM
+ * =======================
+ * We include a slim file-based ORM called sails-disk (https://github.com/balderdashy/sails-disk) that works with waterline.  Waterline accepts many other ORM adapters
+ * but you must configure yourself. https://github.com/balderdashy/waterline
  */
 var sensei = require('./sensei');
 
