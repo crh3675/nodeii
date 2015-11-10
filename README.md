@@ -1,4 +1,4 @@
-Nodeïï (node-eye-eye or Sensei)
+Nodeïï (node-aye-eye or Sensei)
 ========
 A sensible way to setup modern NodeJS Web Projects.
 
