@@ -28,11 +28,11 @@ Managers are backend service containers that manage business logic.  Imagine you
 
 Interface
 ---------------
-Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns _interface_ into an encapsulated environments that contains:
+Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns _interface_ into an encapsulated environment that contains:
 
 - Routing
 - Assets
-- Views (EJS)
+- Views (EJS is default, you can swap for whatever you want; Jade, Mustache)
 - Services
 - Policies
 
