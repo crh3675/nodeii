@@ -1,5 +1,8 @@
 Nodeïï (node-aye-eye or Sensei)
 ========
+
+![alt text](http://craigrhoover.com/images/ayeaye.png "Aye Aye")
+
 A sensible way to setup modern NodeJS Web Projects.
 
 The key to this project is, do not abstract your way to the point of extinction! Abstraction is necessary but modularity isn't always needed. We loosely couple the services we include within the project in order for the developer to easily swap-out anything, anytime.
