@@ -32,7 +32,7 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 
 - Routing
 - Assets
-- Views (EJS is default, you can swap for whatever you want; Jade, Mustache)
+- Views (EJS is installed, you can swap for whatever you want; Jade, Mustache)
 - Services
 - Policies
 
