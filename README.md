@@ -8,7 +8,7 @@ As a developer, __you__ should be able to control your dependencies, not the mod
 
 Sensei says, KISS.
 _____________________________________________________
-NodeII is built upon simple but well supported libraries:
+NodeII is configured to use simple but well supported libraries:
 
 - ExpressJS
 - Waterline
