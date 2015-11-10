@@ -1,14 +1,16 @@
 module.exports = function(req, res, buf) {
    
-   chicken.create({ name : 'Rooster' } ).exec(function(err) {
+   Student.create({ name : 'Kid' } ).exec(function(err) {
       
       if(err) {
          console.error(err);
       }
       
-      chicken.findOne({name: 'Rooster'}).exec(function(err, result) {
+      Student.findOne({name: 'Kid'}).exec(function(err, result) {
          
-         res.render('main.ejs', { name : result.name } );
+         var isOpen = Registration.isOpen();
+         
+         res.render('main.ejs', { name : result.name, isOpen : isOpen } );
          
       });
    });

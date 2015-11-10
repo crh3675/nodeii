@@ -2,7 +2,9 @@ module.exports = {
    
    isAuthenticated : function(req, res, next) {
 
-      console.log('isAuth');
+      console.log('isAuthenticated');
+      
+      //return res.status(401).send('not auth');
       
       return next();   
    },
@@ -11,6 +13,6 @@ module.exports = {
       
       console.log('isUser');
       
-      return res.status(401).send('not auth');
+      return next();
    }
 }
