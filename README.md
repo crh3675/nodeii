@@ -40,7 +40,7 @@ It is our belief that __infrastructure__ should have minimal coupling and have n
 
 Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
 
-The _processing files_ (controllers) for __Nodeii__ merely resolve _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
+The _processing files_ (controllers) for __Nodeii__ merely resolves _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
 
 Testing
 ---------------
