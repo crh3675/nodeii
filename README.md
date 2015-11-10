@@ -1,4 +1,4 @@
-NodeII (node-eye-eye or Sensei)
+Nodeii (node-eye-eye or Sensei)
 ========
 A sensible way to setup modern NodeJS Web Projects.
 
@@ -12,7 +12,7 @@ NodeII is built upon simple but well supported libraries:
 - Waterline
 - EJS Templating
 
-NodeII separates concerns into a new type of structure that is explained further below.
+Nodeii separates concerns into a new type of structure that is explained further below.
 
 Infrastructure
 ---------------
@@ -20,7 +20,7 @@ Infrastructure are the backend components.  In a traditional MVC structure, this
 
 Interface
 ---------------
-Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _NodeII_ turns _interface_ into an encapsulated environments that contains:
+Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns _interface_ into an encapsulated environments that contains:
 
 - Routing
 - Assets
@@ -30,7 +30,7 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 
 It is our belief that _infrastructure_ should have minimal coupling and have no effect on how an _interface_ is built. The only connection from _interface_ to _infrastructure_ is the fact that _interface_ can invoke _entities_ in the processing files (formerly known as controllers for MVC folks). 
 
-The _processing files_ (controllers) for _NodeII_ merely resolve __routes__ to JS files that can also invoke EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
+The _processing files_ (controllers) for _Nodeii_ merely resolve __routes__ to JS files that can also invoke EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
 
 ## Ready to get MVC out of your vocabulary?
 
