@@ -45,8 +45,9 @@
  *
  * ORM
  * =======================
- * We include a slim file-based ORM called sails-disk (https://github.com/balderdashy/sails-disk) that works with waterline.  
- * Waterline accepts many other ORM adapters but you must configure yourself. https://github.com/balderdashy/waterline
+ * We include a slim file-based ORM called sails-disk (https://github.com/balderdashy/sails-disk) 
+ * which works with waterline (https://github.com/balderdashy/waterline).  Waterline accepts many 
+ * other ORM adapters but you must configure yourself. 
  */
 var sensei = require('./sensei');
 
