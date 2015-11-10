@@ -426,6 +426,11 @@
         }
       }
     },
+    "lodash": {
+      "version": "3.10.1",
+      "from": "lodash@*",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
+    },
     "morgan": {
       "version": "1.6.1",
       "from": "morgan@1.6.1",

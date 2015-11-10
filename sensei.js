@@ -6,12 +6,14 @@ var express = require('express')
 , waterline = require('waterline')
 , logger = require('morgan')
 , async = require('async')
+, lodash = require('lodash')
 , fs = require('fs')
 , path = require('path')
 , orm = new waterline();
 
 // Setup global app
 global.sensei = {}
+global._ = lodash;
 sensei.app = express();
 
 module.exports = {
@@ -34,15 +36,16 @@ module.exports = {
             key  : null,
             cert : null,
             ca   : null
+         },
+         session : { 
+            name : 'senseid', 
+            secret : '7cdfb2ba6f5f67e8ce99c96c567d612f', 
+            resave: false, 
+            saveUninitialized: false 
          }
       }
       
-      // Merge options
-      if(options) {
-         for(k in options) {
-            defaults[ k ] = options[ k ];
-         }   
-      }
+      _.merge(defaults, options);
 
       // Configure all defaults
       sensei.paths          = {}
@@ -62,13 +65,14 @@ module.exports = {
       sensei.adapters       = defaults.adapters       || path.join(sensei.paths.root, 'infrastructure','config','adapters');
       sensei.cors           = typeof defaults.cors == 'undefined' ? true : defaults.cors;
       sensei.ssl            = defaults.ssl || null;
+      sensei.session        = defaults.session;
       sensei.cleanup        = defaults.cleanup || function noop() {};
       sensei.port           = defaults.port || 3000;
       
       // Configure express app server
       sensei.app.use(logger('combined'));
       sensei.app.use(cookieParser());
-      sensei.app.use(expressSession({ name : 'senseid', secret : '7cdfb2ba6f5f67e8ce99c96c567d612f', resave: false, saveUninitialized: false }));
+      sensei.app.use(expressSession(sensei.session));
       sensei.app.use(bodyParser.urlencoded({ extended : false }));
       sensei.app.use(bodyParser.json());
       sensei.app.use(bodyParser.raw());
