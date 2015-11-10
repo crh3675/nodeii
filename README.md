@@ -1,4 +1,4 @@
-Nodeii (node-eye-eye or Sensei)
+Nodeïï (node-eye-eye or Sensei)
 ========
 A sensible way to setup modern NodeJS Web Projects.
 
@@ -8,14 +8,14 @@ As a developer, __you__ should be able to control your dependencies, not the mod
 
 Sensei says, KISS.
 _____________________________________________________
-Nodeii is configured to use simple but well supported libraries:
+Nodeïï is configured to use simple but well supported libraries:
 
 - ExpressJS
 - Waterline
 - EJS Templating
 - Lodash
 
-Nodeii separates concerns into a new type of structure that is explained further below.
+Nodeïï separates concerns into a new type of structure that is explained further below.
 
 Infrastructure
 ---------------
@@ -28,7 +28,7 @@ Managers are backend service containers that manage business logic.  Imagine you
 
 Interface
 ---------------
-Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns __interface__ into an encapsulated environment that contains:
+Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeïï_ turns __interface__ into an encapsulated environment that contains:
 
 - Routing
 - Assets
@@ -40,7 +40,7 @@ It is our belief that __infrastructure__ should have minimal coupling and have n
 
 Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
 
-The _processing files_ (controllers) for __Nodeii__ merely resolves _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
+The _processing files_ (controllers) for __Nodeïï__ merely resolves _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
 
 Testing
 ---------------
