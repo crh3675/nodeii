@@ -28,7 +28,7 @@ Managers are backend service containers that manage business logic.  Imagine you
 
 Interface
 ---------------
-Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns _interface_ into an encapsulated environment that contains:
+Interface is all of the view logic to send to the client.  In a traditional MVC structure, this would be __controllers__  and __views__. _Nodeii_ turns __interface__ into an encapsulated environment that contains:
 
 - Routing
 - Assets
@@ -36,15 +36,15 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 - Services
 - Policies
 
-It is our belief that _infrastructure_ should have minimal coupling and have no effect on how an _interface_ is built. The only connection from _interface_ to _infrastructure_ is the fact that _interface_ can invoke _entities_ in the processing files (formerly known as controllers for MVC folks). 
+It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface_ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks). 
 
-Best case scenario is that you create _managers_ to hide the _entities_ completely from the _interface_.  But we don't judge :-)
+Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
 
-The _processing files_ (controllers) for _Nodeii_ merely resolve __routes__ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
+The _processing files_ (controllers) for __Nodeii__ merely resolve _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data anyway you want, we just include EJS for ease of integration with web apps.
 
 Testing
 ---------------
-We get you started with basic testing using __mocha__.  We created a folder called _tests_ in the _infrastructure_ folder.  You can add tests and run:
+We get you started with basic testing using __mocha__.  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
 
     make test
 
