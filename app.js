@@ -38,8 +38,10 @@
  *
  * Sessions
  * =======================
- * In order to keep this framework slim, we only support sessions using express-session (https://github.com/expressjs/session).  
- * To customize session support, you will need to make changes in sensei.js and possibly NPM install additional modules.
+ * In order to keep this framework slim, we only support sessions using 
+ * express-session (https://github.com/expressjs/session).  
+ * To customize session support, you will need to make changes in sensei.js and possibly 
+ * NPM install additional modules.
  *
  * ORM
  * =======================
