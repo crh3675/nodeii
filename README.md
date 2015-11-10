@@ -1,4 +1,4 @@
-Nodeïï (node-aye-eye or Sensei)
+Nodeïï (node-aye-aye or Sensei)
 ========
 
 ![alt text](http://craigrhoover.com/images/ayeaye.png "Aye Aye")
