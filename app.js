@@ -17,10 +17,10 @@
  * =======================
  * By default, entities, services and managers are available in the global scope.
  * For instance, if you have an entity file "Animal.js", you can access using the global
- * variable "Animal".  You can disable globals for entities, services and maangers by
+ * variable "Animal".  You can disable globals for entities, services and managers by
  * passing a 'globals' param as an aray:
  *
- * { globals : [ 'entities', 'managers' ] 
+ * { globals : [ 'entities', 'managers' ] }
  *
  * An empty array desingates that all are global.
  *
@@ -32,9 +32,9 @@
  *
  * Cleanup
  * =======================
- * Many Node apps don't handle cleanup very efficiently.  Therefore, we have an option config param
+ * Many Node apps don't handle cleanup very efficiently.  Therefore, we have an optional config param
  * for 'cleanup'.  This is fired prior to the app shutting down, whether by fatal error or CTRL+C.
- * Pass a function to this param to execute anything you want before complete exit.
+ * Pass a function to this param to execute anything you want before exit.
  *
  * Sessions
  * =======================
