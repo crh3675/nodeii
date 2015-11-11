@@ -47,7 +47,7 @@ The _processing files_ (controllers) for __Nodeíí__ merely resolve _routes_ to
 
 Browser-Based Frameworks
 ---------------
-We don't care about your frontend frameworks. Add any framework (Angular, Backbone, GWT, Ember, Knockout).  It is up to you.  Just add to __assets__.  In truth, everyone should be experts in VanillaJS and not use any frameworks.
+We don't care about your frontend frameworks. Add any framework (Angular, Backbone, GWT, Ember, Knockout).  It is up to you.  Just add to __assets__.  In our opinion, good developers should be experts in VanillaJS and not use any frameworks.
 
 Pre-Compile Stylesheets
 ---------------
