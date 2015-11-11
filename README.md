@@ -45,6 +45,14 @@ Best case scenario is that you create __managers__ to hide the __entities__ comp
 
 The _processing files_ (controllers) for __Nodeíí__ merely resolve _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data with any templating engine that you want (EJS, Jade, Mustache, Handlebars, DIY) we just include EJS for ease of integration with web apps.
 
+Browser-Based Frameworks
+---------------
+We don't care about your frontend frameworks. Add any framework (Angular, Backbone, GWT, Ember, Knockout).  It is up to you.  Just add to __assets__.  In truth, everyone should be experts in VanillaJS and not use any frameworks.
+
+Pre-Compile Stylesheets
+---------------
+We don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want.  We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
+
 Testing
 ---------------
 We get you started with basic testing using __mocha__.  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
