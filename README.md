@@ -39,7 +39,7 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 - Services
 - Policies
 
-It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface_ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks). 
+It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface__ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks). 
 
 Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
 
