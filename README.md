@@ -47,11 +47,11 @@ The _processing files_ (controllers) for __Nodeíí__ merely resolve _routes_ to
 
 Browser-Based Frameworks
 ---------------
-We don't care about your frontend frameworks. Add any framework (Angular, Backbone, GWT, Ember, Knockout).  It is up to you.  Simply add to _assets_.  In our opinion, good developers should be experts in VanillaJS and not use any frameworks.
+We don't care about your frontend frameworks. Add any framework (VanillaJS, Backbone, GWT, Ember, Knockout, Angular).  It is up to you, there are so many choices and we won't make them for you. 
 
 Pre-Compile of Anything
 ---------------
-To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. There are so many choices and we won't make them for you. We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
+To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
 
 Testing
 ---------------
