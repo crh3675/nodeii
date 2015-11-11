@@ -51,7 +51,7 @@ We don't care about your frontend frameworks. Add any framework (Angular, Backbo
 
 Pre-Compile Stylesheets
 ---------------
-We don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want.  We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
+To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want.  We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
 
 Testing
 ---------------
