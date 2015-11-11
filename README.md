@@ -7,10 +7,9 @@ A sensible way to setup modern NodeJS Web Projects.
 
 __Nodeíí__ is not a framework. It is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way.
 
-As a developer, __you__ should be able to control your dependencies, not the modules.
-
-Sensei says, KISS.
+"Don't let your dependencies control your project! Sensei says, KISS"
 _____________________________________________________
+
 Nodeíí is configured to use simple but well supported libraries:
 
 - ExpressJS
