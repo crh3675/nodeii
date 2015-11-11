@@ -5,7 +5,7 @@ Nodeíí (node-aye-aye or Sensei)
 
 A sensible way to setup modern NodeJS Web Projects.
 
-We loosely couple the services we include within the project in order for the developer to easily swap-out anything, anytime. This would be considered an advanced implementation by some because we actually don't write all the code for you. We give you the power to make your own decision while helping lead the way.
+We loosely couple the services we include within the project in order for the developer to easily swap-out anything, anytime. Nodeíí gives you the power to make your own decision while helping lead the way.
 
 As a developer, __you__ should be able to control your dependencies, not the modules.
 
