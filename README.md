@@ -5,7 +5,7 @@ Nodeíí (node-aye-aye or Sensei)
 
 A sensible way to setup modern NodeJS Web Projects.
 
-__Nodeíí__ is not a framework. It is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way. The goal of __Nodeíí__ is to empower the developer to think smarter.
+__Nodeíí__ is not a framework. It is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way. The goal of __Nodeíí__ is to empower the developer to think smarter in order to become a better and more well-rounded developer.
 
 As a developer, __you__ should be able to control your dependencies, not the modules.
 
