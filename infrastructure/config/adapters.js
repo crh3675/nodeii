@@ -9,8 +9,8 @@ module.exports = {
       'default' : {
          adapter : 'disk'
       }
-	},
-	defaults : {
-	   migrate : 'alter'
-	}	
+   },
+   defaults : {
+      migrate : 'alter'
+   }	
 }
