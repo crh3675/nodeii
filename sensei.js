@@ -269,7 +269,7 @@ module.exports = {
                               }
                               
                               // We made it, bind the policy to the route
-                              sensei.app[ method ](route, sensei.policies[ parts[0] ][ parts[1] ]);
+                              sensei.app[ method ](route, policy[ parts[1] ]);
                            });
                         }
                         
