@@ -218,14 +218,20 @@ module.exports = {
 
                for(var r in routes) {
 
+                  // Match start of route with: get, post, put, delete, patch
                   if(m = r.match(regex)) {
                      
+                     // Extract the method and route
                      var method = m[0].toLowerCase();            
                      var route = r.replace(new RegExp('^' + method + '\\s+','i'),'');
+                     
+                     // Create a proxy object to store temp params
                      var proxy = { route : routes[r], policies : [], expires : 0 };
                      
+                     // If the configured route is an object, extract params: expires, route, policies
                      if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
                         
+                        // Found: expires, honor configuration
                         if(routes[r].expires) {  
                            proxy.expires = routes[r].expires;                         
                            res.set('Last-Modified',  (new Date()).toUTCString());
@@ -234,23 +240,42 @@ module.exports = {
                            res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());                              
                         }
                         
+                        // Found: route, honor route
                         if(routes[r].route) {
                            proxy.route = routes[r].route;
                         }
                         
+                        // Found: policies
+                        // Policies must be an array.  Values must match: interface/policies/`Policy.name`
                         if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
 
                            var asyncs = [];
                            proxy.policies = routes[r].policies;
 
                            proxy.policies.forEach(function(policy) {
-                                var parts = policy.split('.');
+                              var parts = policy.split('.');
+                              var policy = null;
+                              
+                              // Ensure policy exists
+                              if(false == sensei.policies.hasOwnProperty( parts[0] )) {
+                                 throw new Error('Cannot bind non-existent policy ' + parts[0]);
+                              }
+                              
+                              policy = sensei.policies[ parts[0] ];
+                              
+                              // Ensure policy has method
+                              if(false == policy.hasOwnProperty( parts[1] )) {
+                                 throw new Error('Cannot bind non-existent policy method ' + parts[0] + '.' + parts[1] );
+                              }
+                              
+                              // We made it, bind the policy to the route
                               sensei.app[ method ](route, sensei.policies[ parts[0] ][ parts[1] ]);
                            });
                         }
                         
                      } else {
                         
+                        // Assign route with method and route handler
                         sensei.app[ method ](route, proxy.route);
                      }
                      
