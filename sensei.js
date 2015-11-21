@@ -226,27 +226,27 @@ module.exports = {
          			   
          			   if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
          			      
-         			      if(routes[r].expires) {  
+                        if(routes[r].expires) {  
          			         proxy.expires = routes[r].expires;       			         
                            res.set('Last-Modified',  (new Date()).toUTCString());
                            res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
                            res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
                            res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());            			         
-      			         }
+                        }
          			      
-         			      if(routes[r].route) {
+                        if(routes[r].route) {
                            proxy.route = routes[r].route;
-      			         }
+                        }
          			      
          			      if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
 
-            			      var asyncs = [];
-            			      proxy.policies = routes[r].policies;
+                           var asyncs = [];
+                           proxy.policies = routes[r].policies;
 
-            			      proxy.policies.forEach(function(policy) {
+                           proxy.policies.forEach(function(policy) {
            			            var parts = policy.split('.');
          			            sensei.app[ method ](route, sensei.policies[ parts[0] ][ parts[1] ]);
-         			         });
+                           });
       			         }
       			         
       			      } else {
