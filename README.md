@@ -27,7 +27,7 @@ Infrastructure are the backend components.  In a traditional MVC structure, this
 - Entities
 - Managers
 
-Managers are backend service containers that manage business logic.  Imagine you want to expose a single service to manage Registrations.  This service may touch many models. This is the perfect place for placing complex business logic functions.
+Managers are backend service containers that manage business logic.  Imagine you want to expose a single service to manage Registrations.  This service may touch many __entities__. This is the perfect place for placing complex business logic functions.
 
 Interface
 ---------------
@@ -51,7 +51,9 @@ We don't care about your frontend frameworks. Add any framework (VanillaJS, Back
 
 Pre-Compile of Anything
 ---------------
-To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
+To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. Use Less, SCSS, Coffeescript or anything of your liking (if you want strange dependent Ruby Gems). 
+
+We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
 
 Testing
 ---------------
