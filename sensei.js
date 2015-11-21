@@ -256,6 +256,7 @@ module.exports = {
                               var parts = policy.split('.');
                               var policy = null;
                               
+                              // Ensure policy configuration is a policy.method
                               if(parts.length == 1) {
                                  throw new Error('Binding a policy to a route requires a method: Policy.method');
                               }
