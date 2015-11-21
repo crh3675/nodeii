@@ -318,6 +318,9 @@ module.exports = {
    
       // get this server up and running
       orm.initialize(adapters, function(err, models) {
+         
+         // Assign boolean is globals in default array are empty
+         var allAreGlobal = self.defaults.globals.length == 0;
 
          // push entities to global scope based on file name
          if(models.collections) {              
@@ -325,14 +328,14 @@ module.exports = {
                
                sensei.entities[ _entities[name].id ] = models.collections[name];
                
-               if(self.defaults.globals.length == 0 || self.defaults.globals.indexOf('entities') > -1) { 
+               if(allAreGlobal || self.defaults.globals.indexOf('entities') > -1) { 
                   global[ _entities[name].id ] = sensei.entities[ _entities[name].id ];
                }               
             }
          }         
    
          // push managers to global scope based on file name
-         if(self.defaults.globals.length == 0 || self.defaults.globals.indexOf('managers') > -1) { 
+         if(allAreGlobal || self.defaults.globals.indexOf('managers') > -1) { 
             if(Object.keys(sensei.managers).length) {
                for(var name in _managers) {
                   global[ name ] = _managers[ name ];         
@@ -341,7 +344,7 @@ module.exports = {
          }
    
          // push services to global scope based on file name
-         if(self.defaults.globals.length == 0 || self.defaults.globals.indexOf('services') > -1) { 
+         if(allAreGlobal || self.defaults.globals.indexOf('services') > -1) { 
             if(Object.keys(sensei.services).length) {
                for(var name in _services) {
                   global[ name ] = _services[ name ];         
