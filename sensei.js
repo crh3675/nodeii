@@ -18,6 +18,7 @@ sensei.app = express();
 
 module.exports = {
    
+   // Base defaults are null until `configure` is called
    defaults : null,
    
    /*
@@ -45,9 +46,10 @@ module.exports = {
          }
       }
       
+      // Recursive merge of options upon defaults
       _.merge(defaults, options);
 
-      // Configure all defaults
+      // Configure application using defaults
       sensei.paths          = {}
       sensei.managers       = {};
       sensei.entities       = {};
@@ -111,10 +113,13 @@ module.exports = {
       	   var schema = require(path.join(sensei.paths.entities, entity));
       	   var def = _entities[klass.toLowerCase()] = { id : klass };
 
-      	   if(!schema.hasOwnProperty('tableName')) {
+            // Use custom tableName if available
+      	   if(false == schema.hasOwnProperty('tableName')) {
       	      schema.tableName = klass;
       	   }
 
+            // Connection will use `default` unless otherwise specified
+            // infrastructure/config/adapters.js:connection.default
       	   schema.connection = 'default' || def.connection;
 
       	   def.model = waterline.Collection.extend( schema );	
