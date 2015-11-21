@@ -326,8 +326,10 @@ module.exports = {
          if(models.collections) {              
             for(var name in models.collections) {
                
+               // Push entities to sensei local scope
                sensei.entities[ _entities[name].id ] = models.collections[name];
                
+               // Push entities to global scope
                if(allAreGlobal || self.defaults.globals.indexOf('entities') > -1) { 
                   global[ _entities[name].id ] = sensei.entities[ _entities[name].id ];
                }               
