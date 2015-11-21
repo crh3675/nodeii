@@ -228,14 +228,14 @@ module.exports = {
          			      
          			      if(routes[r].expires) {  
          			         proxy.expires = routes[r].expires;       			         
-         			         res.set('Last-Modified',  (new Date()).toUTCString());
+                           res.set('Last-Modified',  (new Date()).toUTCString());
                            res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
                            res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
                            res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());            			         
       			         }
          			      
          			      if(routes[r].route) {
-         			         proxy.route = routes[r].route;
+                           proxy.route = routes[r].route;
       			         }
          			      
          			      if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
