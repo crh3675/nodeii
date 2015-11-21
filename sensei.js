@@ -319,7 +319,7 @@ module.exports = {
       // get this server up and running
       orm.initialize(adapters, function(err, models) {
          
-         // Assign boolean is globals in default array are empty
+         // Assign boolean if `globals` in default array are empty
          var allAreGlobal = self.defaults.globals.length == 0;
 
          // push entities to global scope based on file name
