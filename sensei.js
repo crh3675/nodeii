@@ -256,6 +256,10 @@ module.exports = {
                               var parts = policy.split('.');
                               var policy = null;
                               
+                              if(parts.length == 1) {
+                                 throw new Error('Binding a policy to a route requires a method: Policy.method');
+                              }
+                              
                               // Ensure policy exists
                               if(false == sensei.policies.hasOwnProperty( parts[0] )) {
                                  throw new Error('Cannot bind non-existent policy ' + parts[0]);
