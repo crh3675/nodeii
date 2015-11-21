@@ -108,25 +108,25 @@ module.exports = {
       */
       (function boostrap_infrastructure() {
 
-      	var entities = fs.readdirSync(sensei.paths.entities);	
+         var entities = fs.readdirSync(sensei.paths.entities);   
 
-      	entities.forEach(function(entity) {
-      	   var klass = entity.replace(/\.js$/i,'');
-      	   var schema = require(path.join(sensei.paths.entities, entity));
-      	   var def = _entities[klass.toLowerCase()] = { id : klass };
+         entities.forEach(function(entity) {
+            var klass = entity.replace(/\.js$/i,'');
+            var schema = require(path.join(sensei.paths.entities, entity));
+            var def = _entities[klass.toLowerCase()] = { id : klass };
 
             // Use custom tableName if available
-      	   if(false == schema.hasOwnProperty('tableName')) {
-      	      schema.tableName = klass;
-      	   }
+            if(false == schema.hasOwnProperty('tableName')) {
+               schema.tableName = klass;
+            }
 
             // Connection will use `default` unless otherwise specified
             // - infrastructure/config/adapters.js:connection.default
-      	   schema.connection = 'default' || def.connection;
+            schema.connection = 'default' || def.connection;
 
-      	   def.model = waterline.Collection.extend( schema );	
-      	   orm.loadCollection(def.model);
-         });	
+            def.model = waterline.Collection.extend( schema );   
+            orm.loadCollection(def.model);
+         });   
 
       })();
       
@@ -140,9 +140,9 @@ module.exports = {
 
          var managers = fs.readdirSync(sensei.paths.managers);
 
-      	managers.forEach(function(manager) {
-      	   var klass = manager.replace(/\.js$/i,'');
-      	   _managers[klass] = require(path.join(sensei.paths.managers, manager));
+         managers.forEach(function(manager) {
+            var klass = manager.replace(/\.js$/i,'');
+            _managers[klass] = require(path.join(sensei.paths.managers, manager));
          });
 
          sensei.managers = _managers;
@@ -156,40 +156,40 @@ module.exports = {
       */
       (function bootstrap_interface() {
 
-      	// ejs rendering engine for templates
-      	sensei.app.set('view engine', 'ejs');
-      	sensei.app.set('views', sensei.paths.views);
+         // ejs rendering engine for templates
+         sensei.app.set('view engine', 'ejs');
+         sensei.app.set('views', sensei.paths.views);
 
-      	// for layout control, relative to views path
-      	sensei.app.set('layout', sensei.paths.layout);
-      	sensei.app.use(expressLayouts)
-      	sensei.app.set('layout extractScripts', true);
+         // for layout control, relative to views path
+         sensei.app.set('layout', sensei.paths.layout);
+         sensei.app.use(expressLayouts)
+         sensei.app.set('layout extractScripts', true);
 
-      	// static asset loader
-      	sensei.app.use(express.static(sensei.paths.assets));
+         // static asset loader
+         sensei.app.use(express.static(sensei.paths.assets));
 
-      	// cors control
-      	if(sensei.app.cors === true) {
+         // cors control
+         if(sensei.app.cors === true) {
 
-      	   (function bootstrap_cors(){
+            (function bootstrap_cors(){
 
-         	   sensei.app.use(function(req, res, next) {
+               sensei.app.use(function(req, res, next) {
 
-         	      res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-         	      res.set('Access-Control-Allow-Origin', '*');
-         	      res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
-         	      res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
+                  res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+                  res.set('Access-Control-Allow-Origin', '*');
+                  res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
+                  res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
 
-         	      // Intercept OPTIONS method
-         	      if (req.method == 'OPTIONS') {
-         	         return res.sendStatus(200);
-         	      } else {
-         	         next();
-         	      }
-         	   });
-         	})();
-      	};
-      	
+                  // Intercept OPTIONS method
+                  if (req.method == 'OPTIONS') {
+                     return res.sendStatus(200);
+                  } else {
+                     next();
+                  }
+               });
+            })();
+         };
+         
          /*
           * Policies are before-filters than run prior to routes being honored
           */
@@ -197,80 +197,80 @@ module.exports = {
 
             var policies = fs.readdirSync(sensei.paths.policies);
 
-         	policies.forEach(function(policy) {
-         	   var klass = policy.replace(/\.js$/i,'');
-         	   _policies[klass] = require(path.join(sensei.paths.policies, policy));
+            policies.forEach(function(policy) {
+               var klass = policy.replace(/\.js$/i,'');
+               _policies[klass] = require(path.join(sensei.paths.policies, policy));
             });
 
             sensei.policies = _policies;
          })();
 
-      	/*
-      	 * Routes use a simple structure to interface with the ExpresJS server
-      	 */
-      	(function bootstrap_routes() {
+         /*
+          * Routes use a simple structure to interface with the ExpresJS server
+          */
+         (function bootstrap_routes() {
 
-         	var routes = require(sensei.routes);
+            var routes = require(sensei.routes);
 
-         	sensei.app.use(function(req, res, next) {
+            sensei.app.use(function(req, res, next) {
 
-         	   var regex = /^(get|post|put|delete|patch|head)/i;
+               var regex = /^(get|post|put|delete|patch|head)/i;
 
-         		for(var r in routes) {
+               for(var r in routes) {
 
-         			if(m = r.match(regex)) {
-         			   
-         			   var method = m[0].toLowerCase();			   
-         			   var route = r.replace(new RegExp('^' + method + '\\s+','i'),'');
-         			   var proxy = { route : routes[r], policies : [], expires : 0 };
-         			   
-         			   if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
-         			      
+                  if(m = r.match(regex)) {
+                     
+                     var method = m[0].toLowerCase();            
+                     var route = r.replace(new RegExp('^' + method + '\\s+','i'),'');
+                     var proxy = { route : routes[r], policies : [], expires : 0 };
+                     
+                     if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
+                        
                         if(routes[r].expires) {  
-         			         proxy.expires = routes[r].expires;       			         
+                           proxy.expires = routes[r].expires;                         
                            res.set('Last-Modified',  (new Date()).toUTCString());
                            res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
                            res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
-                           res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());            			         
+                           res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());                              
                         }
-         			      
+                        
                         if(routes[r].route) {
                            proxy.route = routes[r].route;
                         }
-         			      
-         			      if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
+                        
+                        if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
 
                            var asyncs = [];
                            proxy.policies = routes[r].policies;
 
                            proxy.policies.forEach(function(policy) {
-           			            var parts = policy.split('.');
-         			            sensei.app[ method ](route, sensei.policies[ parts[0] ][ parts[1] ]);
+                                var parts = policy.split('.');
+                              sensei.app[ method ](route, sensei.policies[ parts[0] ][ parts[1] ]);
                            });
-      			         }
-      			         
-      			      } else {
-      			         
-         			      sensei.app[ method ](route, proxy.route);
-         			   }
-         			   
-         			} else {
-         			   
-         			   console.warn('Invalid route detected ' + routes[r]);
-         			   res.status(400).end('Invalid Request for ' + routes[r]);
-         		   }
-         		}	
-         		next();	
-         	});
+                        }
+                        
+                     } else {
+                        
+                        sensei.app[ method ](route, proxy.route);
+                     }
+                     
+                  } else {
+                     
+                     console.warn('Invalid route detected ' + routes[r]);
+                     res.status(400).end('Invalid Request for ' + routes[r]);
+                  }
+               }   
+               next();   
+            });
          })();
 
-      	(function bootstrap_services() {
+         (function bootstrap_services() {
 
             var services = fs.readdirSync(sensei.paths.services);
 
-         	services.forEach(function(service) {
-         	   var klass = service.replace(/\.js$/i,'');
-         	   _services[klass] = require(path.join(sensei.paths.services, service));
+            services.forEach(function(service) {
+               var klass = service.replace(/\.js$/i,'');
+               _services[klass] = require(path.join(sensei.paths.services, service));
             });
 
             sensei.services = _services;
