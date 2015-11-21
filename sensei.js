@@ -103,6 +103,8 @@ module.exports = {
        * Infrastructure is code that commmunicates with Entity objects.
        * It has been abstracted from an MVC layer to better encapsulate the core
        * or business-related functionality from the UI Component. 
+       *
+       * - infrastructure/entities/*.js
       */
       (function boostrap_infrastructure() {
 
@@ -119,7 +121,7 @@ module.exports = {
       	   }
 
             // Connection will use `default` unless otherwise specified
-            // infrastructure/config/adapters.js:connection.default
+            // - infrastructure/config/adapters.js:connection.default
       	   schema.connection = 'default' || def.connection;
 
       	   def.model = waterline.Collection.extend( schema );	
@@ -130,7 +132,9 @@ module.exports = {
       
        /*
         * Managers are infrastructure components that contain complex business
-        * logic.  Most likely used when agregating data from multiple entities
+        * logic.  Most likely used when aggregating data from multiple entities
+        *
+        * - infrastructure/managers/*.js
         */
       (function bootstrap_managers() {
 
