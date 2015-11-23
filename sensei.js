@@ -156,9 +156,13 @@ module.exports = {
       */
       (function bootstrap_interface() {
 
+         sensei.app.set('trust proxy', false);
+         sensei.app.set('x-powered-by', false);
+
          // ejs rendering engine for templates
-         sensei.app.set('view engine', 'ejs');
          sensei.app.set('views', sensei.paths.views);
+         sensei.app.set('view engine', 'ejs');
+         sensei.app.set('view cache', false);
 
          // for layout control, relative to views path
          sensei.app.set('layout', sensei.paths.layout);
