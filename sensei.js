@@ -42,7 +42,10 @@ module.exports = {
             name : 'senseid', 
             secret : '7cdfb2ba6f5f67e8ce99c96c567d612f', 
             resave: false, 
-            saveUninitialized: false 
+            saveUninitialized: false,
+            cookie :  {
+               maxAge  : 1000  * 86400
+            } 
          }
       }
       
