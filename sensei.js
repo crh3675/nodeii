@@ -81,6 +81,28 @@ module.exports = {
       // static asset loader
       sensei.app.use(express.static(sensei.paths.assets));
       
+      // cors control
+      if(sensei.cors === true) {
+
+         (function bootstrap_cors(){
+
+            sensei.app.use(function(req, res, next) {
+
+               res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+               res.set('Access-Control-Allow-Origin', '*');
+               res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
+               res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
+
+               // Intercept OPTIONS method
+               if (req.method == 'OPTIONS') {
+                  return res.sendStatus(200);
+               } else {
+                  next();
+               }
+            });
+         })();
+      };
+      
       // body parsing
       sensei.app.use(bodyParser.urlencoded({ extended : false }));
       sensei.app.use(bodyParser.json());
@@ -176,28 +198,6 @@ module.exports = {
        * principles that should not care about the underlying architecture
       */
       (function bootstrap_interface() {
-
-         // cors control
-         if(sensei.app.cors === true) {
-
-            (function bootstrap_cors(){
-
-               sensei.app.use(function(req, res, next) {
-
-                  res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-                  res.set('Access-Control-Allow-Origin', '*');
-                  res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
-                  res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
-
-                  // Intercept OPTIONS method
-                  if (req.method == 'OPTIONS') {
-                     return res.sendStatus(200);
-                  } else {
-                     next();
-                  }
-               });
-            })();
-         };
          
          /*
           * Policies are before-filters than run prior to routes being honored
