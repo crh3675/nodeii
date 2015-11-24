@@ -7,6 +7,6 @@ module.exports = {
       policies : [ 'Security.isAuthenticated', 'Security.isUser' ],
       expires  : 3600   
    },
-	'get /'       : require('../routes/main'),
-	'get /login/' : require('../routes/auth/login')
+	'get /'       : require('../views/main'),
+	'get /login/' : require('../views/auth/login')
 };
