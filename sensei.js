@@ -137,7 +137,7 @@ module.exports = {
       var self = this;
       
       if(!self.defaults) {
-         throw new Error('Sensei requires configure() before start()');   
+         throw new Error('Sensei requires configure() before begin()');   
       }      
 
       // Create proxy var to store models, managers and services
