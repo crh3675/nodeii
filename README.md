@@ -13,10 +13,11 @@ _____________________________________________________
 
 Nodeíí is configured to use simple but well supported libraries:
 
-- ExpressJS
-- Waterline
-- EJS Templating
-- Lodash
+- [ExpressJS](http://expressjs.com/ "ExpressJS")
+- [Waterline](https://github.com/balderdashy/waterline "Waterline")
+- [EJS Templating](https://github.com/tj/ejs "EJS")
+- [Lodash](https://lodash.com/ "lodash")
+- [Async](https://github.com/caolan/async "Async")
 
 Nodeíí separates concerns into a new type of structure that is explained further below.
 
