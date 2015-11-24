@@ -1,7 +1,6 @@
 var express = require('express')
 , expressLayouts = require('express-ejs-layouts')
 , expressSession = require('express-session')
-, cookieParser = require('cookie-parser')
 , bodyParser = require('body-parser')
 , waterline = require('waterline')
 , logger = require('morgan')
@@ -75,7 +74,6 @@ module.exports = {
       
       // Configure express app server
       sensei.app.use(logger('combined'));
-      sensei.app.use(cookieParser());
       sensei.app.use(expressSession(sensei.session));
       
       // static asset loader

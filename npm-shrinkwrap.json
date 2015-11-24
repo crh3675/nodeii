@@ -1,6 +1,6 @@
 {
   "name": "sensei",
-  "version": "0.0.6",
+  "version": "0.7.5-alpha",
   "dependencies": {
     "async": {
       "version": "1.5.0",
@@ -109,22 +109,6 @@
               }
             }
           }
-        }
-      }
-    },
-    "cookie-parser": {
-      "version": "1.4.0",
-      "from": "cookie-parser@*",
-      "resolved": "https://registry.npmjs.org/cookie-parser/-/cookie-parser-1.4.0.tgz",
-      "dependencies": {
-        "cookie": {
-          "version": "0.2.2",
-          "from": "cookie@0.2.2",
-          "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.2.2.tgz"
-        },
-        "cookie-signature": {
-          "version": "1.0.6",
-          "from": "cookie-signature@1.0.6"
         }
       }
     },

@@ -1,11 +1,10 @@
 {
   "name": "sensei",
   "description": "sensible application flow",
-  "version": "0.7-alpha",
+  "version": "0.7.5-alpha",
   "dependencies": {
     "async": "^1.5.0",
     "body-parser": "^1.7.0",
-    "cookie-parser": "^1.4.0",
     "ejs": "https://registry.npmjs.org/ejs/-/ejs-1.0.0.tgz",
     "express": "^4.8.7",
     "express-ejs-layouts": "https://registry.npmjs.org/express-ejs-layouts/-/express-ejs-layouts-1.1.0.tgz",
