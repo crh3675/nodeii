@@ -33,6 +33,7 @@ module.exports = {
          globals  : [],
          paths : {},
          cors : true,
+         keepAlive  : 10000,
          ssl : {
             key  : null,
             cert : null,
@@ -70,6 +71,7 @@ module.exports = {
       sensei.session        = defaults.session;
       sensei.cleanup        = defaults.cleanup || function noop() {};
       sensei.port           = defaults.port || 3000;
+      sensei.keepAlive      = defaults.keepAlive || 10000;
       
       // Configure express app server
       sensei.app.use(logger('combined'));
@@ -159,10 +161,10 @@ module.exports = {
          sensei.app.set('trust proxy', false);
          sensei.app.set('x-powered-by', false);
 
-         // ejs rendering engine for templates
+         // EJS rendering engine for templates
          sensei.app.set('views', sensei.paths.views);
          sensei.app.set('view engine', 'ejs');
-         sensei.app.set('view cache', false);
+         sensei.app.set('view cache', false); 
 
          // for layout control, relative to views path
          sensei.app.set('layout', sensei.paths.layout);
@@ -314,11 +316,21 @@ module.exports = {
    
       var adapters = require(sensei.adapters);
       
+      // Configure HTTP or HTTPS Server
       if(sensei.ssl && sensei.ssl.key && sensei.ssl.cert) {
-         sensei.server = require('https').createServer(sensei.ssl, sensei.app);   
+         var https = require('https');
+         https.globalAgent.maxSockets = 100;
+         sensei.server = https.createServer(sensei.ssl, sensei.app);   
       } else {
-         sensei.server = require('http').createServer(sensei.app);
+         var http = require('http');
+         http.globalAgent.maxSockets = 100;
+         sensei.server = http.createServer(sensei.app);
       }
+      
+      // Keep-alive timeout
+      sensei.server.on('connection', function(socket) {
+         socket.setTimeout( self.defaults.keepAlive ); 
+      });
    
       // get this server up and running
       orm.initialize(adapters, function(err, models) {
