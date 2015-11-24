@@ -77,9 +77,28 @@ module.exports = {
       sensei.app.use(logger('combined'));
       sensei.app.use(cookieParser());
       sensei.app.use(expressSession(sensei.session));
+      
+      // static asset loader
+      sensei.app.use(express.static(sensei.paths.assets));
+      
+      // body parsing
       sensei.app.use(bodyParser.urlencoded({ extended : false }));
       sensei.app.use(bodyParser.json());
       sensei.app.use(bodyParser.raw());
+      
+      // Random configs
+      sensei.app.set('trust proxy', false);
+      sensei.app.set('x-powered-by', false);
+
+      // EJS rendering engine for templates
+      sensei.app.set('views', sensei.paths.views);
+      sensei.app.set('view engine', 'ejs');
+      sensei.app.set('view cache', false); 
+
+      // for layout control, relative to views path
+      sensei.app.set('layout', sensei.paths.layout);
+      sensei.app.use(expressLayouts)
+      sensei.app.set('layout extractScripts', true);
       
       this.defaults = defaults;
    },
@@ -157,22 +176,6 @@ module.exports = {
        * principles that should not care about the underlying architecture
       */
       (function bootstrap_interface() {
-
-         sensei.app.set('trust proxy', false);
-         sensei.app.set('x-powered-by', false);
-
-         // EJS rendering engine for templates
-         sensei.app.set('views', sensei.paths.views);
-         sensei.app.set('view engine', 'ejs');
-         sensei.app.set('view cache', false); 
-
-         // for layout control, relative to views path
-         sensei.app.set('layout', sensei.paths.layout);
-         sensei.app.use(expressLayouts)
-         sensei.app.set('layout extractScripts', true);
-
-         // static asset loader
-         sensei.app.use(express.static(sensei.paths.assets));
 
          // cors control
          if(sensei.app.cors === true) {
