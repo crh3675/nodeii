@@ -62,7 +62,7 @@ We get you started with basic testing using __mocha__.  We created a folder call
 
     make test
 
-Why Shrinkwrap?
+Why [Shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap "Shrinkwrap")?
 ---------------
 We have built this concept around the most-recent versions of the libraries as mentioned above.  You can always swap whatever you want but we want to instill the concept of managing dependencies at a project level.  You don't have to use NPM shrinkwrap, we just want your checkout and basic usage of this concept to be smooth and simple.
 
