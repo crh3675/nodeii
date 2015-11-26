@@ -58,7 +58,7 @@ We believe that you should be already writing clean, concise code and don't need
 
 Testing
 ---------------
-We get you started with basic testing using __mocha__.  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
+We get you started with basic testing using [mocha](https://mochajs.org/ "mocha").  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
 
     make test
 
