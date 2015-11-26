@@ -1,6 +1,8 @@
 Nodeíí (node-aye-aye or Sensei)
 ========
 
+![alt text](http://craigrhoover.com/images/ayeaye.png "Aye Aye")
+
 A sensible way to setup modern NodeJS Web Projects.
 
 __Nodeíí__ is not a framework. Inspired by concepts used in [SailsJS](http://sailsjs.org/ "SailsJS"), it is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way.
