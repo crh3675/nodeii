@@ -1,7 +1,7 @@
 Nodeíí (node-aye-aye or Sensei)
 ========
 
-![alt text](http://craigrhoover.com/images/ayeaye.png "Aye Aye")
+![alt text](http://craigrhoover.com/images/ayeaye2.png "Aye Aye")
 
 A sensible way to setup modern NodeJS Web Projects.
 
