@@ -18,7 +18,7 @@
  * By default, entities, services and managers are available in the global scope.
  * For instance, if you have an entity file "Animal.js", you can access using the global
  * variable "Animal".  You can disable globals for entities, services and managers by
- * passing a 'globals' param as an aray:
+ * passing a 'globals' param as an array:
  *
  * { globals : [ 'entities', 'managers' ] }
  *
@@ -38,7 +38,7 @@
  *
  * Sessions
  * =======================
- * In order to keep this framework slim, we only support sessions using 
+ * In order to keep this concept slim, we only support sessions using 
  * express-session (https://github.com/expressjs/session).  
  * To customize session support, you will need to make changes in sensei.js and possibly NPM install 
  * additional modules.
