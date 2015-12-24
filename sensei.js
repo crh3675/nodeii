@@ -65,7 +65,7 @@ module.exports = {
       sensei.paths.entities = defaults.paths.entities || path.join(sensei.paths.root, 'infrastructure', 'entities');
       sensei.paths.layout   = defaults.paths.layout   || path.join(sensei.paths.views, '..', 'layouts', 'default');
       sensei.paths.managers = defaults.paths.manager  || path.join(sensei.paths.root, 'infrastructure', 'managers');
-      sensei.paths.services = defaults.paths.servies  ||path.join(sensei.paths.root, 'interface', 'services');
+      sensei.paths.services = defaults.paths.servies  || path.join(sensei.paths.root, 'interface', 'services');
       sensei.routes         = defaults.routes         || path.join(sensei.paths.root, 'interface', 'config', 'routes');
       sensei.adapters       = defaults.adapters       || path.join(sensei.paths.root, 'infrastructure','config','adapters');
       sensei.cors           = typeof defaults.cors == 'undefined' ? true : defaults.cors;

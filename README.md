@@ -23,7 +23,7 @@ Nodeíí separates concerns into a new type of structure that is explained furth
 
 Infrastructure
 ---------------
-Infrastructure are the backend components.  In a traditional MVC structure, this would be limited to the __models__. In this framework, they are called __entities__.  Infrastructure encapsulates:
+Infrastructure are the backend components.  In a traditional MVC structure, this would be limited to the __models__. In this implementation, they are called __entities__.  Infrastructure encapsulates:
 
 - Entities
 - Managers
