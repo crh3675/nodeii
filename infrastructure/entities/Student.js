@@ -7,14 +7,14 @@ const PASSWORD_REQUIRED = 'passwordRequired';
 const STUDENT_NOT_FOUND = 'studentNotFound';
  
 // Use crpytography component
-var Cryptography = sensei.components.Cryptography; 
+var Security = sensei.components.Security; 
  
 module.exports = {
    
    afterValidate : function(values, next) {   
       
       if(values.password) {
-         values.password = Cryptography.hash(values.password);
+         values.password = Security.hash(values.password);
       }
       next();      
    },
@@ -40,7 +40,7 @@ module.exports = {
             return next( STUDENT_NOT_FOUND );   
          }
          
-         if(Cryptography.matches(password, student.password)) {
+         if(Security.matches(password, student.password)) {
             return next();   
          }
       });
