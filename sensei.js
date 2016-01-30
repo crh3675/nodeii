@@ -86,16 +86,21 @@ module.exports = {
       sensei.app.use(express.static(sensei.paths.assets));
       
       // cors control
-      if(sensei.cors === true) {
+      if(sensei.cors !== false) {
 
          (function bootstrap_cors(){
 
             sensei.app.use(function(req, res, next) {
 
-               res.set('Access-Control-Max-Age', 60 * 60 * 24 * 365);
-               res.set('Access-Control-Allow-Origin', '*');
-               res.set('Access-Control-Allow-Methods', 'GET,OPTIONS');
-               res.set('Access-Control-Allow-Headers', 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token');
+               maxAge  = sensei.cors.maxAge  || 60 * 60 * 24 * 365;
+               origins = sensei.cors.origins || '*';
+               methods = sensei.cors.methods || 'GET,OPTIONS';
+               headers = sensei.cors.headers || 'Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,X-CSRF-Token';  
+
+               res.set('Access-Control-Max-Age', maxAge);
+               res.set('Access-Control-Allow-Origin', origins);
+               res.set('Access-Control-Allow-Methods', methods);
+               res.set('Access-Control-Allow-Headers', headers) ;
 
                // Intercept OPTIONS method
                if (req.method == 'OPTIONS') {
@@ -271,23 +276,6 @@ module.exports = {
                   // If the configured route is an object, extract params: expires, route, policies
                   if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
                      
-                     // Found: expires, honor configuration
-                     if(routes[r].expires) {  
-                        proxy.expires = routes[r].expires;                         
-                        res.set('Last-Modified',  (new Date()).toUTCString());
-                        res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
-                        res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
-                        res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());                              
-                     }                     
-                     
-                     // Before process CORS from route config
-                     if(typeof routes[r].cors != 'undefined' && routes[r].cors == false) {    
-                        res.removeHeader('Access-Control-Max-Age');
-                        res.removeHeader('Access-Control-Allow-Origin');
-                        res.removeHeader('Access-Control-Allow-Methods');
-                        res.removeHeader('Access-Control-Allow-Headers');
-                     }
-                     
                      // Before process method for pre-processing from route config
                      if(routes[r].beforeProcess && typeof routes[r].beforeProcess == 'function') {                        
                         sensei.app[ method ](route, routes[r].beforeProcess);
@@ -324,7 +312,30 @@ module.exports = {
                            sensei.app[ method ](route, policy[ parts[1] ]);
                         });
                      }
-
+                     
+                     // Found: expires, honor configuration
+                     if(routes[r].expires) {  
+                        sensei.app[ method ](route, function(req, res, next) {
+                           proxy.expires = routes[r].expires;                         
+                           res.set('Last-Modified',  (new Date()).toUTCString());
+                           res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
+                           res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
+                           res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());     
+                           next();
+                        });                         
+                     }                     
+                     
+                     // Before process CORS from route config
+                     if(typeof routes[r].cors != 'undefined' && routes[r].cors == false) {                           
+                        sensei.app[ method ](route, function(req, res, next) {
+                           res.removeHeader('Access-Control-Max-Age');
+                           res.removeHeader('Access-Control-Allow-Origin');
+                           res.removeHeader('Access-Control-Allow-Methods');
+                           res.removeHeader('Access-Control-Allow-Headers');
+                           next();
+                        });
+                     }
+                     
                      // After process method for post-processing from route config
                      if(routes[r].afterProcess && typeof routes[r].afterProcess == 'function') {                        
                         sensei.app[ method ](route, routes[r].afterProcess);
