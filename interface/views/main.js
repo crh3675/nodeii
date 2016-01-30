@@ -5,15 +5,13 @@ module.exports = function(req, res, next) {
     * https://github.com/balderdashy/waterline
     */
    
-   var __ = new Language();
-   
    Student.create({ name : 'Kid', password : 'ChangeMENow!' } ).exec(function(err) {
       
       var errors = [];
       
       if(err) {
          console.error( err );
-         errors.push( __(err) );
+         errors.push( req.lang(err) );
       }
       
       console.log('Created student');
@@ -22,7 +20,7 @@ module.exports = function(req, res, next) {
          
          if(err) {
             console.error( err );
-            errors.push( __(err) );
+            errors.push( req.lang(err) );
          }
          
          if(result) {
@@ -31,7 +29,7 @@ module.exports = function(req, res, next) {
          
          var isOpen = Registration.isOpen();
          
-         res.render('main.ejs', { name : result.name, isOpen : isOpen, errors : errors } );
+         res.render('main.ejs', { name : result.name, isOpen : isOpen, errors : errors, lang : req.lang } );
          
       });
    });
