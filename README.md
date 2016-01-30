@@ -31,8 +31,11 @@ Infrastructure are the backend components.  In a traditional MVC structure, this
 
 - Entities
 - Managers
+- Components
 
-Managers are backend service containers that manage business logic.  Imagine you want to expose a single service to manage Registrations.  This service may touch many __entities__. This is the perfect place for placing complex business logic functions.
+__Managers__ are backend service containers that manage business logic.  Imagine you want to expose a single service to manage Registrations.  This service may touch many __entities__. This is the perfect place for placing complex business logic functions.
+
+__Components__ are libraries that don't quite fit the mold of an Entity or Manager.  Most likely, some sort of wrapper for a third-party integration or general library that may be used through the application.  An example of this would be a _Cryptography_ library or a wrapper for _AWS_ functions.
 
 Interface
 ---------------
@@ -45,6 +48,8 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 - Policies
 
 It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface__ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks). 
+
+Use __Services__ to extract functions for route processing. You may also think of these as __interface__ helpers.
 
 Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
 

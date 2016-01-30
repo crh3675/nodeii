@@ -20,7 +20,7 @@
  * variable "Animal".  You can disable globals for entities, services and managers by
  * passing a 'globals' param as an array:
  *
- * { globals : [ 'entities', 'managers' ] }
+ * { globals : [ 'entities', 'managers', 'services', 'components' ] }
  *
  * An empty array desingates that all are global.
  *

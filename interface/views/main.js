@@ -5,10 +5,13 @@ module.exports = function(req, res, next) {
     * https://github.com/balderdashy/waterline
     */
    
-   Student.create({ name : 'Kid' } ).exec(function(err) {
+   Student.create({ name : 'Kid', password : 'ChangeMENow!' } ).exec(function(err) {
+      
+      var errors = [];
       
       if(err) {
          console.error(err);
+         errors.push(err);
       }
       
       console.log('Created student');
@@ -17,6 +20,7 @@ module.exports = function(req, res, next) {
          
          if(err) {
             console.error(err);
+            errors.push(err);
          }
          
          if(result) {
@@ -25,7 +29,7 @@ module.exports = function(req, res, next) {
          
          var isOpen = Registration.isOpen();
          
-         res.render('main.ejs', { name : result.name, isOpen : isOpen } );
+         res.render('main.ejs', { name : result.name, isOpen : isOpen, errors : errors } );
          
       });
    });

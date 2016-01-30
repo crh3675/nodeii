@@ -53,27 +53,28 @@ module.exports = {
       _.merge(defaults, options);
 
       // Configure application using defaults
-      sensei.paths          = {}
-      sensei.managers       = {};
-      sensei.entities       = {};
-      sensei.services       = {};
-      sensei.policies       = {};
-      sensei.paths.root     = defaults.paths.root     || __dirname;
-      sensei.paths.views    = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'views');
-      sensei.paths.assets   = defaults.paths.assets   || path.join(sensei.paths.root, 'interface', 'assets');
-      sensei.paths.policies = defaults.paths.policies || path.join(sensei.paths.root, 'interface', 'policies');
-      sensei.paths.entities = defaults.paths.entities || path.join(sensei.paths.root, 'infrastructure', 'entities');
-      sensei.paths.layout   = defaults.paths.layout   || path.join(sensei.paths.views, '..', 'layouts', 'default');
-      sensei.paths.managers = defaults.paths.manager  || path.join(sensei.paths.root, 'infrastructure', 'managers');
-      sensei.paths.services = defaults.paths.servies  || path.join(sensei.paths.root, 'interface', 'services');
-      sensei.routes         = defaults.routes         || path.join(sensei.paths.root, 'interface', 'config', 'routes');
-      sensei.adapters       = defaults.adapters       || path.join(sensei.paths.root, 'infrastructure','config','adapters');
-      sensei.cors           = typeof defaults.cors == 'undefined' ? true : defaults.cors;
-      sensei.ssl            = defaults.ssl || null;
-      sensei.session        = defaults.session;
-      sensei.cleanup        = defaults.cleanup || function noop() {};
-      sensei.port           = defaults.port || 3000;
-      sensei.keepAlive      = defaults.keepAlive || 10000;
+      sensei.paths            = {}
+      sensei.managers         = {};
+      sensei.entities         = {};
+      sensei.services         = {};
+      sensei.policies         = {};
+      sensei.paths.root       = defaults.paths.root     || __dirname;
+      sensei.paths.views      = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'views');
+      sensei.paths.assets     = defaults.paths.assets   || path.join(sensei.paths.root, 'interface', 'assets');
+      sensei.paths.policies   = defaults.paths.policies || path.join(sensei.paths.root, 'interface', 'policies');
+      sensei.paths.entities   = defaults.paths.entities || path.join(sensei.paths.root, 'infrastructure', 'entities');
+      sensei.paths.layout     = defaults.paths.layout   || path.join(sensei.paths.views, '..', 'layouts', 'default');
+      sensei.paths.managers   = defaults.paths.manager  || path.join(sensei.paths.root, 'infrastructure', 'managers');
+      sensei.paths.components = defaults.paths.components  || path.join(sensei.paths.root, 'infrastructure', 'components');
+      sensei.paths.services   = defaults.paths.servies  || path.join(sensei.paths.root, 'interface', 'services');
+      sensei.routes           = defaults.routes         || path.join(sensei.paths.root, 'interface', 'config', 'routes');
+      sensei.adapters         = defaults.adapters       || path.join(sensei.paths.root, 'infrastructure','config','adapters');
+      sensei.cors             = typeof defaults.cors == 'undefined' ? true : defaults.cors;
+      sensei.ssl              = defaults.ssl || null;
+      sensei.session          = defaults.session;
+      sensei.cleanup          = defaults.cleanup || function noop() {};
+      sensei.port             = defaults.port || 3000;
+      sensei.keepAlive        = defaults.keepAlive || 10000;
       
       // Configure express app server
       sensei.app.use(logger('combined'));
@@ -141,16 +142,39 @@ module.exports = {
       }      
 
       // Create proxy var to store models, managers and services
-      var _entities = {}, _managers = {}, _services = {}, _policies = {};
+      var _entities = {}, _components = {}, _managers = {}, _services = {}, _policies = {};
+      
+      /*
+       * Order of bootstrapping is imporant:
+       *
+       * (1) Components
+       * (2) Entities
+       * (3) Managers
+       * (4) Services
+       * (5) Policies
+       * (6) Routes
+       *
+       */
 
       /*
-       * Infrastructure is code that commmunicates with Entity objects.
-       * It has been abstracted from an MVC layer to better encapsulate the core
-       * or business-related functionality from the UI Component. 
-       *
-       * - infrastructure/entities/*.js
-      */
-      (function boostrap_infrastructure() {
+       * Components are low-level libraries unrelated to Enties and Managers
+       */
+      (function bootstrap_components() {
+
+         var components = fs.readdirSync(sensei.paths.components);
+
+         components.forEach(function(component) {
+            var klass = component.replace(/\.js$/i,'');
+            _components[klass] = require(path.join(sensei.paths.components, component));
+         });
+
+         sensei.components = _components;
+      })();
+
+      /*
+       * Entities represent models of data 
+       */
+      (function boostrap_entities() {
 
          var entities = fs.readdirSync(sensei.paths.entities);   
 
@@ -174,12 +198,9 @@ module.exports = {
 
       })();
       
-       /*
-        * Managers are infrastructure components that contain complex business
-        * logic.  Most likely used when aggregating data from multiple entities
-        *
-        * - infrastructure/managers/*.js
-        */
+      /*
+       * Managers use entities to execute business logic 
+       */
       (function bootstrap_managers() {
 
          var managers = fs.readdirSync(sensei.paths.managers);
@@ -191,133 +212,126 @@ module.exports = {
 
          sensei.managers = _managers;
       })();
+      
+      /*
+       * Services are used to extract helper functions for the routes/views
+       */
+      (function bootstrap_services() {
 
+         var services = fs.readdirSync(sensei.paths.services);
+
+         services.forEach(function(service) {
+            var klass = service.replace(/\.js$/i,'');
+            _services[klass] = require(path.join(sensei.paths.services, service));
+         });
+
+         sensei.services = _services;
+      })();
+      
+      /*
+       * Policies are pre-filters that run before a route can be honored
+       */
+      (function bootstrap_policies() {
+
+         var policies = fs.readdirSync(sensei.paths.policies);
+
+         policies.forEach(function(policy) {
+            var klass = policy.replace(/\.js$/i,'');
+            _policies[klass] = require(path.join(sensei.paths.policies, policy));
+         });
+
+         sensei.policies = _policies;
+      })();
 
       /*
-       * Interface is code that communicates directly with the User of the application.
-       * It has been abstracted from an MVC layer to better encapsulate UX/User Interaction
-       * principles that should not care about the underlying architecture
-      */
-      (function bootstrap_interface() {
-         
-         /*
-          * Policies are before-filters than run prior to routes being honored
-          */
-         (function bootstrap_policies() {
+       * All the routes
+       */
+      (function bootstrap_routes() {
 
-            var policies = fs.readdirSync(sensei.paths.policies);
+         var routes = require(sensei.routes);
 
-            policies.forEach(function(policy) {
-               var klass = policy.replace(/\.js$/i,'');
-               _policies[klass] = require(path.join(sensei.paths.policies, policy));
-            });
+         sensei.app.use(function(req, res, next) {
 
-            sensei.policies = _policies;
-         })();
+            var regex = /^(get|post|put|delete|patch|head)/i;
 
-         /*
-          * Routes use a simple structure to interface with the ExpresJS server
-          */
-         (function bootstrap_routes() {
+            for(var r in routes) {
 
-            var routes = require(sensei.routes);
-
-            sensei.app.use(function(req, res, next) {
-
-               var regex = /^(get|post|put|delete|patch|head)/i;
-
-               for(var r in routes) {
-
-                  // Match start of route with: get, post, put, delete, patch
-                  if(m = r.match(regex)) {
+               // Match start of route with: get, post, put, delete, patch
+               if(m = r.match(regex)) {
+                  
+                  // Extract the method and route
+                  var method = m[0].toLowerCase();            
+                  var route = r.replace(new RegExp('^' + method + '\\s+','i'),'');
+                  
+                  // Create a proxy object to store temp params
+                  var proxy = { route : routes[r], policies : [], expires : 0 };
+                  
+                  // If the configured route is an object, extract params: expires, route, policies
+                  if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
                      
-                     // Extract the method and route
-                     var method = m[0].toLowerCase();            
-                     var route = r.replace(new RegExp('^' + method + '\\s+','i'),'');
+                     // Found: expires, honor configuration
+                     if(routes[r].expires) {  
+                        proxy.expires = routes[r].expires;                         
+                        res.set('Last-Modified',  (new Date()).toUTCString());
+                        res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
+                        res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
+                        res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());                              
+                     }
                      
-                     // Create a proxy object to store temp params
-                     var proxy = { route : routes[r], policies : [], expires : 0 };
+                     // Found: route, honor route
+                     if(routes[r].route) {
+                        proxy.route = routes[r].route;
+                     }
                      
-                     // If the configured route is an object, extract params: expires, route, policies
-                     if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
-                        
-                        // Found: expires, honor configuration
-                        if(routes[r].expires) {  
-                           proxy.expires = routes[r].expires;                         
-                           res.set('Last-Modified',  (new Date()).toUTCString());
-                           res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
-                           res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
-                           res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());                              
-                        }
-                        
-                        // Found: route, honor route
-                        if(routes[r].route) {
-                           proxy.route = routes[r].route;
-                        }
-                        
-                        // Found: policies
-                        // Policies must be an array.  Values must match: interface/policies/`Policy.name`
-                        if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
+                     // Found: policies
+                     // Policies must be an array.  Values must match: interface/policies/`Policy.name`
+                     if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
 
-                           var asyncs = [];
-                           proxy.policies = routes[r].policies;
+                        var asyncs = [];
+                        proxy.policies = routes[r].policies;
 
-                           proxy.policies.forEach(function(policy) {
-                              var parts = policy.split('.');
-                              var policy = null;
-                              
-                              // Ensure policy configuration is a policy.method
-                              if(parts.length == 1) {
-                                 throw new Error('Binding a policy to a route requires a method: Policy.method');
-                              }
-                              
-                              // Ensure policy exists
-                              if(false == sensei.policies.hasOwnProperty( parts[0] )) {
-                                 throw new Error('Cannot bind non-existent policy ' + parts[0]);
-                              }
-                              
-                              policy = sensei.policies[ parts[0] ];
-                              
-                              // Ensure policy has method
-                              if(false == policy.hasOwnProperty( parts[1] )) {
-                                 throw new Error('Cannot bind non-existent policy method ' + parts[0] + '.' + parts[1] );
-                              }
-                              
-                              // We made it, bind the policy to the route
-                              sensei.app[ method ](route, policy[ parts[1] ]);
-                           });
-                        }
-                        
-                     } else {
-                        
-                        // Assign route with method and route handler
-                        sensei.app[ method ](route, proxy.route);
+                        proxy.policies.forEach(function(policy) {
+                           var parts = policy.split('.');
+                           var policy = null;
+                           
+                           // Ensure policy configuration is a policy.method
+                           if(parts.length == 1) {
+                              throw new Error('Binding a policy to a route requires a method: Policy.method');
+                           }
+                           
+                           // Ensure policy exists
+                           if(false == sensei.policies.hasOwnProperty( parts[0] )) {
+                              throw new Error('Cannot bind non-existent policy ' + parts[0]);
+                           }
+                           
+                           policy = sensei.policies[ parts[0] ];
+                           
+                           // Ensure policy has method
+                           if(false == policy.hasOwnProperty( parts[1] )) {
+                              throw new Error('Cannot bind non-existent policy method ' + parts[0] + '.' + parts[1] );
+                           }
+                           
+                           // We made it, bind the policy to the route
+                           sensei.app[ method ](route, policy[ parts[1] ]);
+                        });
                      }
                      
                   } else {
                      
-                     console.warn('Invalid route detected ' + routes[r]);
-                     res.status(400).end('Invalid Request for ' + routes[r]);
+                     // Assign route with method and route handler
+                     sensei.app[ method ](route, proxy.route);
                   }
-               }   
-               next();   
-            });
-         })();
-
-         (function bootstrap_services() {
-
-            var services = fs.readdirSync(sensei.paths.services);
-
-            services.forEach(function(service) {
-               var klass = service.replace(/\.js$/i,'');
-               _services[klass] = require(path.join(sensei.paths.services, service));
-            });
-
-            sensei.services = _services;
-         })();
-
+                  
+               } else {
+                  
+                  console.warn('Invalid route detected ' + routes[r]);
+                  res.status(400).end('Invalid Request for ' + routes[r]);
+               }
+            }   
+            next();   
+         });
       })();
-   
+
       var adapters = require(sensei.adapters);
       
       // Configure HTTP or HTTPS Server
@@ -341,6 +355,15 @@ module.exports = {
          
          // Assign boolean if `globals` in default array are empty
          var allAreGlobal = self.defaults.globals.length == 0;
+         
+         // push components to global scope based on file name
+         if(allAreGlobal || self.defaults.globals.indexOf('components') > -1) { 
+            if(Object.keys(sensei.components).length) {
+               for(var name in _components) {
+                  global[ name ] = _components[ name ];         
+               }
+            }
+         }
 
          // push entities to global scope based on file name
          if(models.collections) {              

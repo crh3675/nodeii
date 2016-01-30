@@ -1,3 +1,8 @@
+<% if(errors) { %>
+   <%- JSON.stringify(errors) %>
+<% } %>
+
+
 Hi <%- name %>! Registration is <%- isOpen ? 'open' : 'closed' %>.
 
 <script src="/scripts/main.js"></script>
