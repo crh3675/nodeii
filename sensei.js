@@ -79,7 +79,7 @@ module.exports = {
       sensei = _.defaultsDeep(options, sensei);
 
       // Configure express app server
-      sensei.app.use(logger('combined'));
+      sensei.app.use(logger('dev'));
       sensei.app.use(expressSession(sensei.session));
       
       // static asset loader
