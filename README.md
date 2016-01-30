@@ -50,7 +50,7 @@ Browser-Based Frameworks
 ---------------
 We don't care about your frontend frameworks. Add any framework (VanillaJS, Backbone, GWT, Ember, Knockout, Angular).  It is up to you, there are so many choices and we won't make them for you. 
 
-Pre-Compile of Anything
+Pre-Compile of Assets
 ---------------
 To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. Use Less, SCSS, Coffeescript or anything of your liking (if you want strange dependent Ruby Gems). 
 
