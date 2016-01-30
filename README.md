@@ -5,7 +5,7 @@ Nodeíí (node-aye-aye or Sensei)
 
 A sensible way to setup modern NodeJS Web Projects. Be a builder, not an integrator.
 
-Why not MVC?  MVC is an archaic design pattern. Built around 20 year-old technology, certain aspects might be viable, just not practical. Controllers become so bloated and developers get lazy.  MVC lacks the appropriate separation of real-world concerns and the knowledgeable and disciplined developers to follow the paradigm.
+Why not MVC?  MVC is an archaic design pattern. Built around 20 year-old concepts. Certain aspects might be viable, just not practical. Controllers become so bloated and developers get lazy.  MVC lacks the appropriate separation of real-world concerns and the knowledgeable and disciplined developers to follow the paradigm.
 
 Code should make sense from the ground-up, not just from a programmer level.  We aim to produce a clean separation of concerns by providing a concept that breaks the MVC mold.
 
