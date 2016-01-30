@@ -6,7 +6,7 @@
 */
 module.exports = {
    'get *'       : {
-      policies : [ 'Access.isAuthenticated', 'Access.isUser', 'Locale.setLanguage' ],
+      policies : [ 'Access.isAuthenticated', 'Access.isAuthorized', 'Locale.setLanguage' ],
       expires  : 3600   
    },
    'get /'       : require('../views/main'),

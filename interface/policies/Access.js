@@ -9,10 +9,12 @@ module.exports = {
       return next();   
    },
    
-   isUser : function(req, res, next) {
+   isAuthorized : function(req, res, next) {
+
+      console.log('isAuthorized');
       
-      console.log('isUser');
+      //return res.status(401).send('not auth');
       
-      return next();
+      return next();   
    }
 }
