@@ -316,7 +316,6 @@ module.exports = {
                      // Found: expires, honor configuration
                      if(routes[r].expires) {  
                         sensei.app[ method ](route, function(req, res, next) {
-                           proxy.expires = routes[r].expires;                         
                            res.set('Last-Modified',  (new Date()).toUTCString());
                            res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
                            res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
@@ -336,15 +335,15 @@ module.exports = {
                         });
                      }
                      
-                     // After process method for post-processing from route config
-                     if(routes[r].afterProcess && typeof routes[r].afterProcess == 'function') {                        
-                        sensei.app[ method ](route, routes[r].afterProcess);
-                     }
-                     
                      // Found: route, honor route
                      if(routes[r].path) {
                         proxy.route = routes[r].path;
                         sensei.app[ method ](route,  require( path.join(sensei.paths.views, proxy.route) ) );
+                     }
+                     
+                     // After process method for post-processing from route config
+                     if(routes[r].afterProcess && typeof routes[r].afterProcess == 'function') {                        
+                        sensei.app[ method ](route, routes[r].afterProcess);
                      }
                      
                   } else {
