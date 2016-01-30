@@ -49,9 +49,6 @@ module.exports = {
             } 
          }
       }
-      
-      // Recursive merge of options upon defaults
-      _.merge(defaults, options);
 
       // Configure application using defaults
       sensei.paths            = {};
@@ -60,7 +57,7 @@ module.exports = {
       sensei.services         = {};
       sensei.policies         = {};
       sensei.components       = {};
-      sensei.paths.root       = defaults.paths.root     || __dirname;
+      sensei.paths.root       = __dirname;
       sensei.paths.views      = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'views', 'routes');
       sensei.paths.assets     = defaults.paths.assets   || path.join(sensei.paths.root, 'interface', 'assets');
       sensei.paths.policies   = defaults.paths.policies || path.join(sensei.paths.root, 'interface', 'policies');
@@ -70,7 +67,7 @@ module.exports = {
       sensei.paths.components = defaults.paths.components  || path.join(sensei.paths.root, 'infrastructure', 'components');
       sensei.paths.services   = defaults.paths.servies  || path.join(sensei.paths.root, 'interface', 'services');
       sensei.routes           = defaults.routes         || path.join(sensei.paths.root, 'config', 'interface', 'routes');
-      sensei.adapters         = defaults.adapters       || path.join(sensei.paths.root, 'config', 'infrastructure','adapters');
+      sensei.adapters         = path.join(sensei.paths.root, 'config', 'infrastructure','adapters');
       sensei.cors             = typeof defaults.cors == 'undefined' ? true : defaults.cors;
       sensei.ssl              = defaults.ssl || null;
       sensei.session          = defaults.session;
@@ -78,6 +75,9 @@ module.exports = {
       sensei.port             = defaults.port || 3000;
       sensei.keepAlive        = defaults.keepAlive || 10000;
       
+      // Merge options over defaults
+      sensei = _.defaultsDeep(options, sensei);
+
       // Configure express app server
       sensei.app.use(logger('combined'));
       sensei.app.use(expressSession(sensei.session));
