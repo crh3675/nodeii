@@ -61,6 +61,13 @@ Testing
 We get you started with basic testing using [mocha](https://mochajs.org/ "mocha").  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
 
     make test
+    
+Useful Web Integration Libraries
+---------------
+- [Web Sockets](http://socket.io/docs/)
+- [Redis](https://github.com/luin/ioredis)
+- [iNotify](https://github.com/yuanchuan/node-watch)
+- [Mongo](http://mongoosejs.com/)
 
 Why [Shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap "Shrinkwrap")?
 ---------------
