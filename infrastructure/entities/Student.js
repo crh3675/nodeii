@@ -6,11 +6,17 @@ const EMAIL_REQUIRED    = 'emailRequired';
 const PASSWORD_REQUIRED = 'passwordRequired';
 const STUDENT_NOT_FOUND = 'studentNotFound';
  
-// Use crpytography component
+// Use security component.  It is also in the global scope but this
+// demonstrates how to load specifically if not global
 var Security = sensei.components.Security; 
  
 module.exports = {
    
+   /*
+    * Allow update of values after validation
+    * @param {Object} values
+    * @param {Function} next callback
+    */
    afterValidate : function(values, next) {   
       
       if(values.password) {
@@ -19,6 +25,12 @@ module.exports = {
       next();      
    },
    
+   /*
+    * Validate email and password match student
+    * @param {String} email
+    * @param {String} password
+    * @param {Function} next callback
+    */
    validateLogin : function(email, password, next) {
       
       if(!email) {

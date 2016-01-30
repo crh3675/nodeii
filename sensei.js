@@ -58,6 +58,7 @@ module.exports = {
       sensei.entities         = {};
       sensei.services         = {};
       sensei.policies         = {};
+      sensei.components       = {};
       sensei.paths.root       = defaults.paths.root     || __dirname;
       sensei.paths.views      = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'views');
       sensei.paths.assets     = defaults.paths.assets   || path.join(sensei.paths.root, 'interface', 'assets');
@@ -145,7 +146,7 @@ module.exports = {
       var _entities = {}, _components = {}, _managers = {}, _services = {}, _policies = {};
       
       /*
-       * Order of bootstrapping is imporant:
+       * Order of bootstrapping is important:
        *
        * (1) Components
        * (2) Entities
