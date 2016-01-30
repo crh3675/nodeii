@@ -278,18 +278,25 @@ module.exports = {
                         res.set('Cache-Control', 'private, proxy-revalidate, must-revalidate, max-age=' + routes[r].expires + ', s-max-age=' + routes[r].expires);
                         res.set('Surrogate-Control', 'must-revalidate, max-age=' + routes[r].expires);
                         res.set('Expires', new Date((new Date().getTime()) + (routes[r].expires * 1000)).toUTCString());                              
+                     }                     
+                     
+                     // Before process CORS from route config
+                     if(typeof routes[r].cors != 'undefined' && routes[r].cors == false) {    
+                        res.removeHeader('Access-Control-Max-Age');
+                        res.removeHeader('Access-Control-Allow-Origin');
+                        res.removeHeader('Access-Control-Allow-Methods');
+                        res.removeHeader('Access-Control-Allow-Headers');
                      }
                      
-                     // Found: route, honor route
-                     if(routes[r].route) {
-                        proxy.route = routes[r].route;
+                     // Before process method for pre-processing from route config
+                     if(routes[r].beforeProcess && typeof routes[r].beforeProcess == 'function') {                        
+                        sensei.app[ method ](route, routes[r].beforeProcess);
                      }
                      
                      // Found: policies
                      // Policies must be an array.  Values must match: interface/policies/`Policy.name`
                      if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
 
-                        var asyncs = [];
                         proxy.policies = routes[r].policies;
 
                         proxy.policies.forEach(function(policy) {
@@ -316,6 +323,17 @@ module.exports = {
                            // We made it, bind the policy to the route
                            sensei.app[ method ](route, policy[ parts[1] ]);
                         });
+                     }
+
+                     // After process method for post-processing from route config
+                     if(routes[r].afterProcess && typeof routes[r].afterProcess == 'function') {                        
+                        sensei.app[ method ](route, routes[r].afterProcess);
+                     }
+                     
+                     // Found: route, honor route
+                     if(routes[r].path) {
+                        proxy.route = routes[r].path;
+                        sensei.app[ method ](route,  require( path.join(sensei.paths.views, proxy.route) ) );
                      }
                      
                   } else {
