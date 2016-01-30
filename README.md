@@ -64,10 +64,10 @@ We get you started with basic testing using [mocha](https://mochajs.org/ "mocha"
     
 Useful Web Integration Libraries
 ---------------
-- [Web Sockets](http://socket.io/docs/)
-- [Redis](https://github.com/luin/ioredis)
-- [iNotify](https://github.com/yuanchuan/node-watch)
-- [Mongo](http://mongoosejs.com/)
+- Use [Web Sockets](http://socket.io/docs/) for real-time updates
+- Use [Redis](https://github.com/luin/ioredis) for memory cache in clustered environments
+- Use [iNotify](https://github.com/yuanchuan/node-watch) to watch files as they arrive (like AWS SNS)
+- Use [Mongo](http://mongoosejs.com/) to store non-relational data
 
 Why [Shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap "Shrinkwrap")?
 ---------------
