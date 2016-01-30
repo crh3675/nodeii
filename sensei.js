@@ -12,6 +12,7 @@ var express = require('express')
 
 // Setup global app
 global.sensei = {}
+global.async = async;
 global._ = lodash;
 sensei.app = express();
 
@@ -68,8 +69,8 @@ module.exports = {
       sensei.paths.managers   = defaults.paths.manager  || path.join(sensei.paths.root, 'infrastructure', 'managers');
       sensei.paths.components = defaults.paths.components  || path.join(sensei.paths.root, 'infrastructure', 'components');
       sensei.paths.services   = defaults.paths.servies  || path.join(sensei.paths.root, 'interface', 'services');
-      sensei.routes           = defaults.routes         || path.join(sensei.paths.root, 'interface', 'config', 'routes');
-      sensei.adapters         = defaults.adapters       || path.join(sensei.paths.root, 'infrastructure','config','adapters');
+      sensei.routes           = defaults.routes         || path.join(sensei.paths.root, 'config', 'interface', 'routes');
+      sensei.adapters         = defaults.adapters       || path.join(sensei.paths.root, 'config', 'infrastructure','adapters');
       sensei.cors             = typeof defaults.cors == 'undefined' ? true : defaults.cors;
       sensei.ssl              = defaults.ssl || null;
       sensei.session          = defaults.session;
@@ -320,7 +321,7 @@ module.exports = {
                   } else {
                      
                      // Assign route with method and route handler
-                     sensei.app[ method ](route, proxy.route);
+                     sensei.app[ method ](route,  require( path.join(sensei.paths.views, proxy.route) ) );
                   }
                   
                } else {

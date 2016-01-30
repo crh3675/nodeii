@@ -1,6 +1,6 @@
 var path = require('path');
    fs      = require('fs')
-   configs = path.join(__dirname, '../', 'config/langs/');
+   configs = path.join(__dirname, '..', '..', 'config', 'interface', 'langs');
    langs   = fs.readdirSync(configs);
 
 /*
