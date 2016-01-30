@@ -5,6 +5,10 @@ Nodeíí (node-aye-aye or Sensei)
 
 A sensible way to setup modern NodeJS Web Projects. Be a builder, not an integrator.
 
+Why not MVC?  MVC is an archaic design pattern. Built around 20 year-old technology, certain aspects might be viable, just not practical. Controllers become so bloated, even in the self proclaimed AngularJS.  It lacks the appropriate separation of real-world concerns.
+
+Code should make sense from the gound-up, not just from a programmer level.  We aim to product a clean separation of concerns by providing a concept that breaks the MVC mold.
+
 __Nodeíí__ is not a framework. Inspired by concepts used in [SailsJS](http://sailsjs.org/ "SailsJS"), it is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way.
 
 
