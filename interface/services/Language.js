@@ -3,6 +3,11 @@ var path = require('path');
    configs = path.join(__dirname, '../', 'config/langs/');
    langs   = fs.readdirSync(configs);
 
+/*
+ * Setup an instance of a new language
+ * @param {String} locale
+ * @returns {Function}( {String} ) key to retrieve
+ */
 var Language = function ( locale ) {
    
    var self = this;   
@@ -15,9 +20,10 @@ var Language = function ( locale ) {
 
 Language.locales = {};
 
+// Preload languages for quick access
 langs.forEach(function(lang) {
    if(!lang.match(/^\./)) {
-      Language.locales[ lang ]  = require( path.join(configs, lang) ) 
+      Language.locales[ lang ] = require( path.join(configs, lang) ) 
    }
 });
 
