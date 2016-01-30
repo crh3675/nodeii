@@ -54,7 +54,7 @@ module.exports = {
       _.merge(defaults, options);
 
       // Configure application using defaults
-      sensei.paths            = {}
+      sensei.paths            = {};
       sensei.managers         = {};
       sensei.entities         = {};
       sensei.services         = {};
