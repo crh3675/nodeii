@@ -67,7 +67,7 @@ Useful Web Integration Libraries
 - Use [Web Sockets](http://socket.io/docs/) for real-time updates
 - Use [Redis](https://github.com/luin/ioredis) for memory cache in clustered environments
 - Use [iNotify](https://github.com/yuanchuan/node-watch) to watch files as they arrive (like AWS SNS)
-- Use [Mongo](http://mongoosejs.com/) to store non-relational data
+- Use [Mongo](http://mongoosejs.com/) to store non-relational data (Waterline supports this already though)
 
 Why [Shrinkwrap](https://docs.npmjs.com/cli/shrinkwrap "Shrinkwrap")?
 ---------------
