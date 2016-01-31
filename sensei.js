@@ -276,11 +276,6 @@ module.exports = {
                   // If the configured route is an object, extract params: expires, route, policies
                   if(Object.prototype.toString.call(routes[r]) == '[object Object]') {
                      
-                     // Before process method for pre-processing from route config
-                     if(routes[r].beforeProcess && typeof routes[r].beforeProcess == 'function') {                        
-                        sensei.app[ method ](route, routes[r].beforeProcess);
-                     }
-                     
                      // Found: policies
                      // Policies must be an array.  Values must match: interface/policies/`Policy.name`
                      if(routes[r].policies && Object.prototype.toString.call(routes[r].policies) == '[object Array]') {
@@ -339,11 +334,6 @@ module.exports = {
                      if(routes[r].path) {
                         proxy.route = routes[r].path;
                         sensei.app[ method ](route,  require( path.join(sensei.paths.views, proxy.route) ) );
-                     }
-                     
-                     // After process method for post-processing from route config
-                     if(routes[r].afterProcess && typeof routes[r].afterProcess == 'function') {                        
-                        sensei.app[ method ](route, routes[r].afterProcess);
                      }
                      
                   } else {
