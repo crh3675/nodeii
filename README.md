@@ -18,6 +18,7 @@ _____________________________________________________
 Nodeíí is configured to use simple but well supported libraries:
 
 - [ExpressJS](http://expressjs.com/ "ExpressJS")
+- [Morgan](https://github.com/expressjs/morgan "Morgan")
 - [Waterline](https://github.com/balderdashy/waterline "Waterline")
 - [EJS Templating](https://github.com/tj/ejs "EJS")
 - [Lodash](https://lodash.com/ "lodash")
