@@ -72,6 +72,10 @@ To reiterate, we don't care to touch any of your browser-based code.  That part 
 
 We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
 
+Sample Application
+---------------
+There is a basic example of usage already included in the Git Checkout.  Once you start the app, you will be using __Nodeii__.
+
 Testing
 ---------------
 We get you started with basic testing using [mocha](https://mochajs.org/ "mocha").  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
