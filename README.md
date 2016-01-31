@@ -74,7 +74,9 @@ We believe that you should be already writing clean, concise code and don't need
 
 Sample Application
 ---------------
-There is a basic example of usage already included in the Git Checkout.  Once you start the app, you will be using __Nodeii__.
+There is a basic example of usage already included in the Git Checkout.  Once you start the app, you will be using __Nodeii__. Simple Git clone the project and run:
+
+    node app.js
 
 Testing
 ---------------
