@@ -18,7 +18,7 @@ _____________________________________________________
 Nodeíí is configured to use simple but well supported libraries:
 
 - [Router: ExpressJS](http://expressjs.com/ "ExpressJS")
-- [Loggin: Morgan](https://github.com/expressjs/morgan "Morgan")
+- [Logging: Morgan](https://github.com/expressjs/morgan "Morgan")
 - [ORM: Waterline](https://github.com/balderdashy/waterline "Waterline")
 - [Templates: EJS](https://github.com/tj/ejs "EJS")
 - [Utility: Lodash](https://lodash.com/ "lodash")
