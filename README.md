@@ -49,6 +49,8 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 
 It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface__ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks). 
 
+You should be able to remove __interface__ and keep all of your business logic intact.  Even better, you should be able to create multiple __interfaces__ without having to mess with the __infrastructure__.
+
 Use __Services__ to extract functions for route processing. You may also think of these as __interface__ helpers.
 
 Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
