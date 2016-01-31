@@ -17,12 +17,12 @@ _____________________________________________________
 
 Nodeíí is configured to use simple but well supported libraries:
 
-- [ExpressJS](http://expressjs.com/ "ExpressJS")
-- [Morgan](https://github.com/expressjs/morgan "Morgan")
-- [Waterline](https://github.com/balderdashy/waterline "Waterline")
-- [EJS Templating](https://github.com/tj/ejs "EJS")
-- [Lodash](https://lodash.com/ "lodash")
-- [Async](https://github.com/caolan/async "Async")
+- [Router: ExpressJS](http://expressjs.com/ "ExpressJS")
+- [Loggin: Morgan](https://github.com/expressjs/morgan "Morgan")
+- [ORM: Waterline](https://github.com/balderdashy/waterline "Waterline")
+- [Templates: EJS](https://github.com/tj/ejs "EJS")
+- [Utility: Lodash](https://lodash.com/ "lodash")
+- [Async Operations: Async](https://github.com/caolan/async "Async")
 
 Nodeíí separates concerns into a new type of structure that is explained further below.
 
