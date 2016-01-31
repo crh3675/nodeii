@@ -21,7 +21,7 @@ Nodeíí is configured to use simple but well supported libraries:
 - Logging: [Morgan](https://github.com/expressjs/morgan "Morgan")
 - ORM: [Waterline](https://github.com/balderdashy/waterline "Waterline")
 - Templates: [EJS](https://github.com/tj/ejs "EJS")
-- Utility: [Utility: Lodash](https://lodash.com/ "lodash")
+- Utility: [Lodash](https://lodash.com/ "lodash")
 - Async Operations: [Async](https://github.com/caolan/async "Async")
 
 Nodeíí separates concerns into a new type of structure that is explained further below.
