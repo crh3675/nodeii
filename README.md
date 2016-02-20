@@ -75,7 +75,7 @@ We believe that you should be already writing clean, concise code and don't need
 
 Extras
 ---------------
-We don't want your experience to be terrible.  Therefore we included a basic internationalization Service in the *Interface* and a *Policy* to inject the locale for those who don't expect all web applications to be in the English language. You can add locale configuration into the _config/interface/langs_ folder.
+We don't want your experience to be terrible.  Therefore we included a basic internationalization __Service__ in the __Interface__ and a __Policy__ to inject the locale for those who don't expect all web applications to be in the English language. You can add locale configuration into the _config/interface/langs_ folder.
 
 Sample Application
 ---------------
