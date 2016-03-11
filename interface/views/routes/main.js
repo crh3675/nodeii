@@ -5,7 +5,7 @@ module.exports = function(req, res, next) {
     * https://github.com/balderdashy/waterline
     */
    
-   Student.create({ name : 'Kid', password : 'ChangeMENow!' } ).exec(function(err) {
+   Student.create({ name : 'Kid', password : 'ChangeMENow!', email: 'student@school.com' } ).exec(function(err) {
       
       var errors = [];
       
