@@ -283,6 +283,12 @@ module.exports = {
                         proxy.policies = routes[r].policies;
 
                         proxy.policies.forEach(function(policy) {
+                           
+                           // Allow policy to be lambda function(req, res)
+                           if(typeof policy == 'function') {
+                              return sensei.app[ method ](route, policy);
+                           }
+                           
                            var parts = policy.split('.');
                            var policy = null;
                            
