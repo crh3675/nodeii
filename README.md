@@ -7,6 +7,8 @@ A sensible way to setup modern NodeJS Web Projects. Be a builder, not an integra
 
 Why not MVC?  MVC is an archaic design pattern. Built around 20 year-old concepts. Certain aspects might be viable, just not practical. Controllers become so bloated and developers get lazy.  MVC lacks the appropriate separation of real-world concerns and the knowledgeable and disciplined developers to follow the paradigm.
 
+Why not ![EcmaScript 6](https://kangax.github.io/compat-table/es6/ "ES6")? ES6 has some good points and some bad.  We aren't here to dissuade you from using the latest and greatest in technology but reality is that conformity of modern techniques is just no there yet.
+
 Code should make sense from the ground-up, not just from a programmer level.  We aim to produce a clean separation of concerns by providing a concept that breaks the MVC mold.
 
 __Nodeíí__ is not a framework. Inspired by concepts used in [SailsJS](http://sailsjs.org/ "SailsJS") and [Uncle Bob (Robert C. Martin)](https://www.youtube.com/watch?v=asLUTiJJqdE), it is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way.
