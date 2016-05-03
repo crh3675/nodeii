@@ -100,7 +100,7 @@ Useful Web Integration Libraries
 - Use [Redis](https://github.com/luin/ioredis) for memory cache in clustered environments
 - Use [iNotify](https://github.com/yuanchuan/node-watch) to watch files as they arrive (like AWS SNS)
 - Use [Mongo](http://mongoosejs.com/) to store non-relational data (Waterline supports this already though)
-- Use [PM2](https://github.com/Unitech/pm2) to scale web HTTP/HTTPS NodeJS Web Applications (no WebSockets through HTTPS)
+- Use [PM2](https://github.com/Unitech/pm2) to scale web HTTP/HTTPS NodeJS Web Applications (NO WebSockets through HTTPS)
 - Use [nGinx](https://www.nginx.com/resources/wiki/) to scale ALL NodeJS Applications w/ Static Content (HTTP/HTTPS)
 - Use [HAProxy](http://www.haproxy.org/) to scale your HTTP/HTTPS APIs (YES WebSockets through HTTPS)
 
