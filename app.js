@@ -5,6 +5,12 @@
  * The sensei.js is merely abstracted to make this
  * base file easier to read for configuration and startup.
  *
+ * If you use a build agent, perhaps Bamboo or Jenkins, you can symlink (*nix systems) this file with
+ * your custom config file in the 'config/env' folder per environment
+ *
+ * Example for OSX/*nix:
+ * ln -s env/config/local.js app.js
+ *
  * Paths
  * =======================
  * All paths can be overridden by passing to the base configure in a 'paths' param:
