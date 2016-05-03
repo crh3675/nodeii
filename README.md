@@ -9,7 +9,7 @@ Key points:
 * Don't let your dependencies control your project! Sensei says, [KISS](https://en.wikipedia.org/wiki/KISS_principle)
 * Be sensible,  setup your NodeJS Web Projects as a builder, not an integrator
 
-Why not [MVC](https://en.wikipedia.org/wiki/MVC)?  MVC is an archaic design pattern. Built around 20 year-old concepts. Certain aspects might be viable, just not practical. Controllers become so bloated and developers get lazy.  MVC lacks the appropriate separation of real-world concerns and the knowledgeable and disciplined developers to follow the paradigm.
+Why not [MVC](https://en.wikipedia.org/wiki/MVC)?  MVC is an archaic design pattern. Built around 20 year-old concepts. Certain aspects might be viable, just not practical. Controllers become so bloated and developers get lazy.  MVC lacks the appropriate separation of real-world concerns. MVC requires knowledge and discipline to follow the paradigm; Nodeii is not a framework and doesn't require such regimented a structure. You control your end result and we are jut here for guidance (unless you think we are completely insane).
 
 Why not [EcmaScript 6](https://kangax.github.io/compat-table/es6/ "ES6")? ES6 has some good points and some bad.  We aren't here to dissuade you from using the latest and greatest in technology but reality is that conformity of modern techniques is just not there yet.
 
