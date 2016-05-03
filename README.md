@@ -3,6 +3,7 @@ Nodeíí (node-aye-aye or Sensei)
 
 ![alt text](http://craigrhoover.com/images/asciiayeaye.png "Aye Aye")
 
+__Nodeíí__ is not a framework. Inspired by concepts used in [SailsJS](http://sailsjs.org/ "SailsJS") and [Uncle Bob (Robert C. Martin)](https://www.youtube.com/watch?v=asLUTiJJqdE), it is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way.
 
 Key points:
 
@@ -14,8 +15,6 @@ Why not [MVC](https://en.wikipedia.org/wiki/MVC)?  MVC is an archaic design patt
 Why not [EcmaScript 6](https://kangax.github.io/compat-table/es6/ "ES6")? ES6 has some good points and some bad.  We aren't here to dissuade you from using the latest and greatest in technology but reality is that conformity of modern techniques is just not there yet.
 
 We aim to produce a clean separation of concerns by providing a concept that breaks the MVC mold and gives you the flexibility to control dependencies.
-
-__Nodeíí__ is not a framework. Inspired by concepts used in [SailsJS](http://sailsjs.org/ "SailsJS") and [Uncle Bob (Robert C. Martin)](https://www.youtube.com/watch?v=asLUTiJJqdE), it is a loose coupling of high-level services that will assist you in building applications. __Nodeíí__ includes some well-supported libraries to get you started but you can easily swap-out anything, anytime. __Nodeíí__ gives you the power to make your own decisions while helping lead the way.
 
 _____________________________________________________
 
