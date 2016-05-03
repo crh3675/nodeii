@@ -47,7 +47,7 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 
 - Routing
 - Assets
-- Views (EJS is installed, *you can swap for whatever you want; Jade, Mustache)
+- Views (EJS is installed, *you can swap for whatever you want; [Jade](http://jade-lang.com/), [Mustache](https://mustache.github.io/), [Nunjucks](https://mozilla.github.io/nunjucks/))
 - Services
 - Policies
 
