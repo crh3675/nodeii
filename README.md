@@ -63,9 +63,11 @@ You should be able to remove __interface__ and keep all of your business logic i
 
 Use __Services__ to extract functions for route processing. You may also think of these as __interface__ helpers.
 
-Best case scenario is that you create __managers__ to hide the __entities__ completely from the __interface__.  But we don't judge :-)
+If you need to interface with the __infrastructure__ layer, best case scenario is that you create __infrastructure__ __managers__ to move data between __entities__ and only use  the __manager__ references in the __interface__ layer - but we don't judge :-)
 
 The _processing files_ (controllers) for __Nodeíí__ merely resolve _routes_ to JS files that can also invoke *EJS templates to display their layout. Key point is that there is no convention for doing so, you can output your data with any templating engine that you want (EJS, Jade, Mustache, Handlebars, DIY) we just include EJS for ease of integration with web apps.
+
+If __Nodeíí__ is too abstract or questionable for you, perhaps [SailsJS](http://sailsjs.org/) is your better choice. We just want you to use the right tool for the job.
 
 Browser-Based Frameworks
 ---------------
