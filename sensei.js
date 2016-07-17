@@ -58,7 +58,8 @@ module.exports = {
       sensei.policies         = {};
       sensei.components       = {};
       sensei.paths.root       = __dirname;
-      sensei.paths.views      = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'views', 'routes');
+      sensei.paths.views      = defaults.paths.views    || path.join(sensei.paths.root, 'interface', 'views');
+      sensei.paths.routes     = defaults.paths.routes   || path.join(sensei.paths.root, 'interface', 'routes');
       sensei.paths.assets     = defaults.paths.assets   || path.join(sensei.paths.root, 'interface', 'assets');
       sensei.paths.policies   = defaults.paths.policies || path.join(sensei.paths.root, 'interface', 'policies');
       sensei.paths.entities   = defaults.paths.entities || path.join(sensei.paths.root, 'infrastructure', 'entities');
@@ -348,7 +349,7 @@ module.exports = {
                   } else {
                      
                      // Assign route with method and route handler
-                     sensei.app[ method ](route,  require( path.join(sensei.paths.views, proxy.route) ) );
+                     sensei.app[ method ](route,  require( path.join(sensei.paths.routes, proxy.route) ) );
                   }
                   
                } else {
