@@ -339,7 +339,10 @@ module.exports = {
                      // Found: route, honor route
                      if(routes[r].path) {
                         proxy.route = routes[r].path;
-                        sensei.app[ method ](route,  require( path.join(sensei.paths.views, proxy.route) ) );
+                        sensei.app[ method ](route,  require( path.join(sensei.paths.routes, proxy.route) ) );
+                     } else if(null == r.match(/\*/)) {
+                        // Use named route if path not specified
+                        sensei.app[ method ](route,  require( path.join(sensei.paths.routes, route) ) );
                      }
                      
                   } else {
