@@ -78,6 +78,10 @@ To reiterate, we don't care to touch any of your browser-based code.  That part 
 
 We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
 
+Routes and Views are Mixed Together
+---------------
+Change it in **sensei.js**! Create a __routes__ folder and change **sensei.js** to process differently. Gather the full control you really have!
+
 Extras
 ---------------
 We don't want your experience to be terrible.  Therefore we included a basic internationalization __Service__ in the __Interface__ and a __Policy__ to inject the locale for those who don't expect all web applications to be in the English language. You can add locale configuration into the _config/interface/langs_ folder.  Policies are configured as string representations of an Object.method or a lambda function.
