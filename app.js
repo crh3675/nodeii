@@ -57,15 +57,7 @@
  * 
  */
 var sensei = require('./sensei');
+var config = require('./config');
 
-sensei.configure({ 
-   port : 1337,
-   cors : true,
-   session : {
-      name : 'mysession'   
-   },
-   cleanup : function() {
-
-   }
-});
+sensei.configure( config );
 sensei.begin();

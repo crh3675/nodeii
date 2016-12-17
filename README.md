@@ -113,6 +113,10 @@ We have built this concept around the most-recent versions of the libraries as m
 Clone this project and run:
 
     npm install
+    
+Configure Environment:
+
+   ln -s config/env/local.js config.js
    
 Then:
 
