@@ -116,7 +116,7 @@ Clone this project and run:
     
 Configure Environment:
 
-   ln -s config/env/local.js config.js
+    ln -s config/env/local.js config.js
    
 Then:
 
