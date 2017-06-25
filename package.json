@@ -1,7 +1,7 @@
 {
   "name": "sensei",
   "description": "sensible application flow",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "repository": "https://github.com/crh3675/nodeii",
   "license": "ISC",
   "dependencies": {
