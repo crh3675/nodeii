@@ -172,6 +172,8 @@ module.exports = {
          var components = fs.readdirSync(sensei.paths.components);
 
          components.forEach(function(component) {
+            if(null == component.match(/\.js/i)) return;
+            
             var klass = component.replace(/\.js$/i,'');
             _components[klass] = require(path.join(sensei.paths.components, component));
          });
@@ -187,6 +189,8 @@ module.exports = {
          var entities = fs.readdirSync(sensei.paths.entities);   
 
          entities.forEach(function(entity) {
+            if(null == entity.match(/\.js/i)) return;
+            
             var klass = entity.replace(/\.js$/i,'');
             var schema = require(path.join(sensei.paths.entities, entity));
             var def = _entities[klass.toLowerCase()] = { id : klass };
@@ -214,6 +218,8 @@ module.exports = {
          var managers = fs.readdirSync(sensei.paths.managers);
 
          managers.forEach(function(manager) {
+            if(null == manager.match(/\.js/i)) return;
+            
             var klass = manager.replace(/\.js$/i,'');
             _managers[klass] = require(path.join(sensei.paths.managers, manager));
          });
@@ -229,6 +235,8 @@ module.exports = {
          var services = fs.readdirSync(sensei.paths.services);
 
          services.forEach(function(service) {
+            if(null == service.match(/\.js/i)) return;
+            
             var klass = service.replace(/\.js$/i,'');
             _services[klass] = require(path.join(sensei.paths.services, service));
          });
@@ -244,6 +252,8 @@ module.exports = {
          var policies = fs.readdirSync(sensei.paths.policies);
 
          policies.forEach(function(policy) {
+            if(null == policy.match(/\.js/i)) return;
+            
             var klass = policy.replace(/\.js$/i,'');
             _policies[klass] = require(path.join(sensei.paths.policies, policy));
          });
