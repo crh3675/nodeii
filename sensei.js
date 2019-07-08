@@ -393,7 +393,7 @@ module.exports = {
       // get this server up and running
       orm.initialize(adapters, function(err, models) {
          if (err) {
-            return console.error(err.toString);
+            console.error(err);
          }
 
          // Assign boolean if `globals` in default array are empty

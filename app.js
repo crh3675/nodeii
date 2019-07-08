@@ -1,7 +1,7 @@
 /*
  * NodeII Sensei Loader
  *
- * This is a basic loader that allows you to have access and configure whatever you need.  
+ * This is a basic loader that allows you to have access and configure whatever you need.
  * The sensei.js is merely abstracted to make this
  * base file easier to read for configuration and startup.
  *
@@ -44,17 +44,17 @@
  *
  * Sessions
  * =======================
- * In order to keep this concept slim, we only support sessions using 
- * express-session (https://github.com/expressjs/session).  
- * To customize session support, you will need to make changes in sensei.js and possibly NPM install 
+ * In order to keep this concept slim, we only support sessions using
+ * express-session (https://github.com/expressjs/session).
+ * To customize session support, you will need to make changes in sensei.js and possibly NPM install
  * additional modules.
  *
  * ORM
  * =======================
- * We include a slim file-based ORM called sails-disk (https://github.com/balderdashy/sails-disk) 
- * which works with waterline (https://github.com/balderdashy/waterline).  Waterline accepts many 
+ * We include a slim file-based ORM called sails-disk (https://github.com/balderdashy/sails-disk)
+ * which works with waterline (https://github.com/balderdashy/waterline).  Waterline accepts many
  * other ORM adapters but you must configure yourself in sensei.js.
- * 
+ *
  */
 var sensei = require('./sensei');
 var config = require('./config');
