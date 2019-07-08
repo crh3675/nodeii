@@ -13,15 +13,14 @@
     "express-session": "^1.15.6",
     "extend": "^3.0.0",
     "lodash": "^4.17.2",
-    "mocha": "^3.2.0",
     "morgan": "^1.9.0",
-    "sails-disk": "^0.10.10",
-    "waterline": "^0.11.9"
+    "sails-disk": "^1.0.1",
+    "waterline": "^0.13.5"
   },
   "scripts": {
     "start": "node app.js"
   },
   "devDependencies": {
-    "mocha": "^2.3.3"
+    "mocha": "^5.2.0"
   }
 }

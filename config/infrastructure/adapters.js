@@ -1,7 +1,7 @@
 var diskAdapter = require('sails-disk');
 
 module.exports = {
-   adapters : {
+   datastores : {
       'default' : diskAdapter,
       'disk' : diskAdapter
    },
@@ -12,5 +12,5 @@ module.exports = {
    },
    defaults : {
       migrate : 'alter'
-   }	
+   }
 }
