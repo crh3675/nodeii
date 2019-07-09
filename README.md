@@ -10,7 +10,7 @@ Key points:
 
 Why not [MVC](https://en.wikipedia.org/wiki/MVC)?  MVC is an archaic design pattern. Built around 20 year-old concepts. Certain aspects might be viable, just not practical. Controllers become so bloated and developers get lazy.  MVC lacks the appropriate separation of real-world concerns. MVC requires knowledge and discipline to follow the paradigm; __Nodeii__ is not a framework and doesn't require a regimented architecture. You control your dependencies and we are just here for guidance (unless you think we are completely insane).
 
-Why not [EcmaScript 6](https://kangax.github.io/compat-table/es6/ "ES6")? ES6 has some good points and some bad.  We aren't here to dissuade you from using the latest and greatest in technology but reality is that conformity of modern techniques is just not there yet.
+Why not [EcmaScript 6](https://kangax.github.io/compat-table/es6/ "ES6")? Rewriting everything just because there are new decorators and neat/new ways to do things really doesn't solve any problems.
 
 We aim to produce a clean separation of concerns by providing a concept that breaks the MVC mold and gives you the flexibility to control dependencies.
 
@@ -49,7 +49,7 @@ Interface is all of the view logic to send to the client.  In a traditional MVC 
 - Services
 - Policies
 
-It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface__ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks). 
+It is our belief that __infrastructure__ should have minimal coupling and have no effect on how an __interface__ is built. The only connection from __interface__ to __infrastructure__ is the fact that __interface__ can invoke __entities__ in the processing files (formerly known as controllers for MVC folks).
 
 You should be able to remove __interface__ and keep all of your business logic intact.  Even better, you should be able to create multiple __interfaces__ without having to mess with the __infrastructure__.  You could actually create an __interfaces__ folder and have any of the following as sub-interfaces:
 
@@ -68,11 +68,11 @@ If __Nodeíí__ is too abstract or questionable for you, perhaps [SailsJS](http:
 
 Browser-Based Frameworks
 ---------------
-We don't care about your frontend frameworks. Add any framework (VanillaJS, jQuery, Bootstrap, Prototype, Scala.js, Nuclear, React, Backbone, GWT, Ember, Knockout, Angular).  It is up to you, there are so many choices and we won't make them for you. 
+We don't care about your frontend frameworks. Add any framework (VanillaJS, jQuery, Bootstrap, Prototype, Scala.js, Nuclear, React, Backbone, GWT, Ember, Knockout, Angular, Vue).  It is up to you, there are so many choices and we won't make them for you.
 
 Pre-Compile of Assets
 ---------------
-To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. Use Less, SCSS, Coffeescript or anything of your liking (if you want strange dependent Ruby Gems). 
+To reiterate, we don't care to touch any of your browser-based code.  That part is up to you.  Use Bower, Grunt or whatever you want. Use Less, SCSS, Coffeescript or anything of your liking (if you want strange dependent Ruby Gems).
 
 We believe that you should be already writing clean, concise code and don't need those libraries but everyone has a flavor.
 
@@ -91,7 +91,7 @@ Testing
 We get you started with basic testing using [mocha](https://mochajs.org/ "mocha").  We created a folder called _tests_ in the __infrastructure__ folder.  You can add tests and run:
 
     make test
-    
+
 Useful Web Integration Libraries
 ---------------
 - Use [Web Sockets](http://socket.io/docs/) for real-time updates
@@ -111,11 +111,11 @@ We have built this concept around the most-recent versions of the libraries as m
 Clone this project and run:
 
     npm install
-    
+
 Configure Environment:
 
     ln -s config/env/local.js config.js
-   
+
 Then:
 
     node app.js
@@ -123,7 +123,7 @@ Then:
 In your browser:
 
     http://localhost:1337
-    
+
 License
 ---------------
 (The MIT License)
@@ -134,4 +134,4 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.    
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
